@@ -11,7 +11,7 @@
 #include "countries.h"
 
 /**
- * Affiche les informations d'aide lorsque l'argument --help est presemt
+ * Affiche les informations d'aide lorsque l'argument --help est present
  *
  * @return
  */
@@ -41,27 +41,27 @@ void afficherAide(){
 
 /**
  * Fonction qui verifie si la commande d'execution contient le chaine de 
- * caracteres desiree.
+ * caracteres desiree et qui retourne la position de la chaine dans la
+ * commande.
  *
  * @param       **p - pointeur de pointeurs de caracteres, pointant au debut
  *              du tableau de chaine de caracteres argv
  * @param       *chaine - chaine recherchee
  * @param       nombre de chaine contenues dans la commande d'execution (argc)              
- * @return      vrai si la la chaine est presente dans la ligne de commande,
- *              faux sinon.
+ * @return      La position de la chaine dans la commande, 0 si la chaine est
+ *              absente.
  */
-bool chercherArgument(const char **p, const char *chaine, int nbArguments) {
+int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 
     int i;
     
-    if(nbArguments == 1) {
-        return false;
-    }
+    
     for (i = 1 ; i < nbArguments ; i++) {
         if (*p[i] == *chaine) {
-            return true;
+            return i;
         }
     }
+    return 0;
 }
 
 //int main(int argc, char *argv[]){

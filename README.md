@@ -53,7 +53,7 @@ Le projet consiste en un programme qui affiche differentes informations sur un o
 - [ ] Implémentation des fonctions du fichier *countries.h* dans le fichier *countries.c*
 
   - [x] void afficherAide()
-  - [x] bool chercherArgument(const \*\*p, const \*chaine, int argc) 
+  - [x] int chercherArgument(const \*\*p, const \*chaine, int argc) 
   - [ ] fonction #3
   - [ ] ...
 

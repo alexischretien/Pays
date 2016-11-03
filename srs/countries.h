@@ -7,4 +7,4 @@
 #include<stdbool.h>
 
 void afficherAide();
-bool chercherArgument(const char **p, const char *chaine, int nbArguments);
+int chercherArgument(const char **p, const char *chaine, int nbArguments);
