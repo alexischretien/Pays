@@ -2,68 +2,76 @@
 
 ## Description
 
-Description du projet en quelques phrases.
-Mentionner le contexte (cours, sigle, université, etc.).
+Projet visant à introduire les étudiants à la programmation modulaire en language C, à la gestion des dépendances et à la construction de suites de tests. 
+
+Le projet consiste en un programme qui affiche differentes informations sur un ou plusieurs pays en fonction des arguments qui ont été entré par l'utilisateur lors de l'exécution du programme. Ces arguments incluent une option pour générer des objets graphiques sous format .dot ou .pgn
 
 ## Auteurs
 
-- Prénom et nom (Code permanent)
-- Prénom et nom (Code permanent)
-- Prénom et nom (Code permanent)
+- Alexis Chrétien (CHRA25049209)
 
 ## Plateformes supportées
 
-Indiquez ici la liste des plateformes sur lesquelles le projet a été testé
-(MacOS, Ubuntu, Mint, Serveur Matl etc.). N'oubliez pas de préciser la version
-de la plateforme (MacOS 10.10.5 Yosemite, Ubuntu 14.04 LTS, etc.).
+À venir
 
 ## Dépendances
 
-Donnez la liste des bibliothèques et des logiciels qui doivent être installées
-pour que le projet soit fonctionnel. Donnez le lien vers ceux-ci pour que
-l'utilisateur puisse être redirigé vers les sites officiels des
-logiciels/bibliothèques pour effectuer l'installation le cas échéant. N'oubliez
-pas d'indiquer
+* [Graphviz](http://graphviz.org/Download.php) : Logiciel de visualization graphique.
+* Le projet [countries](https://github.com/ablondin/countries) : Projet duquel on extrait les informations des différents pays. Le projet *inf3135-aut2016-tp2* contient le *projet countries* sous forme de sous-module. Pour mettre à jour les données du sous-module *countries*, entrez la commande `make data` dans le répertoire racine du projet *inf3135-aut2016-tp2*.
+* La bibliothèque [jansson](http://digip.org/jansson/) : Bibliothèque C pour encoder, décoder et manipuler des informations sous forme JSON - www.digip.org/jansson/
 
 ## Installation
 
-Expliquez comment rendre le projet fonctionnel (commandes make et make data ?)
-et comment lancer la suite de tests automatiques (make test ?), comment
-nettoyer le dossier (make clean ?).
+À venir
 
 ## Fonctionnement
 
-Expliquez brièvement comment utiliser votre programme avec au moins trois
-exemples d'utilisation (commande lancée et résultat affiché).  Assurez-vous que
-les exemples de commande lancée et de résultats obtenus sont formatés
-correctement à l'aide de Markdown.
+À venir
 
 ## Contenu du projet
 
-Décrivez brièvement chacun des fichiers contenus dans le projet. Utilisez
-une liste à puce et décrivez-les de façon significative (une phrase par
-fichier)
+* Makefile
+  Ficher Makefile inculant un service de compilation des fichiers sources et de génération du fichier exécutable *tp2* (`make`), un service de nettoyage des fichiers du projet (`make clean`) et un service de mise à jour des fichiers du sous-module *countries* (`make data`).
+* README.md
+  Fichier markdown servant à la documentation et au formatage de la page GitLab du projet.
+* tp2 
+  Le fichier exécutable du projet
+* countries/
+  Répertoire du sous-module *countries*, projet contenant les informations des différents pays.
+* countries.c 
+  Fichier C contenant l'implémentation du fichier *countries.h*
+* countries.h
+  Fichier header contenant les déclarations des fonctions du ficher *countries.c*. 
+* tp2.c
+  Fichier C source du projet produisant l'exécutable.
+* suite1.bats, suite2.bats, ...
+  Fichers .bats produisant des séries de tests servant à vérifier la bonne implémentation du projet. 
+* .gitmodules
+  Ficher servant à définir le module *countries*.
 
 ## Références
 
-Citez vos sources ici, s'il y a lieu.
+À venir, s'il y a lieu.
 
 ## Statut
 
-Indiquez le statut actuel du projet et les bogues connus s'il y a lieu. Aussi,
-utilisez cette section pour indiquer la liste des tâches à effectuer pour
-compléter le projet en utilisant le [format spécial
-Markdown](https://docs.gitlab.com/ce/user/markdown.html#task-lists) :
+- [ ] Implémentation du fichier *countries.h*
 
-- [ ] Tâche 1
+  - [ ] Définir les fonctions nécessaire au fonctionnement du projet. 
 
-  - [x] Sous-tâche 1.1 (complété par Alice)
-  - [ ] Sous-tâche 1.2 (responsable : Bob)
+- [ ] Implémentation des fonctions du fichier *countries.h* dans le fichier *countries.c*
 
-- [ ] Tâche 2
+  - [ ] fonction #1
+  - [ ] fonction #2
+  - [ ] ...
 
-  - [ ] Sous-tâche 2.1 (responsable : Alice)
-  - [x] Sous-tâche 2.2 (complété par Bob)
-  - [ ] Sous-tâche 2.3 (responsable : Alice et Bob)
+- [ ] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
 
-- [ ] Tâche 3
+- [ ] Créer des suites de tests et tester le projet
+
+  - [ ] Creation d'une suite de tests pour le format texte
+  - [ ] Creation d'une suite de tests pour le format Graphviz
+  - [ ] Création d'une suite de tests pour le format PNG
+  - [ ] Validation des tests et corrections éventuelles appliquées au projet
+
+- [ ] Optimisation 
