@@ -46,15 +46,15 @@ Le projet consiste en un programme qui affiche differentes informations sur un o
 
 ## Statut
 
-- [ ] Implémentation du fichier *countries.h*
-
-  - [ ] Définir les fonctions nécessaire au fonctionnement du projet. 
+- [ ] Definir les fonctions du fichier *countries.h* 
 
 - [ ] Implémentation des fonctions du fichier *countries.h* dans le fichier *countries.c*
 
   - [x] void afficherAide()
   - [x] int chercherArgument(const \*\*p, const \*chaine, int argc) 
-  - [ ] fonction #3
+  - [x] char * trim(char [] chaine)
+  - [x] void genererFichierPays(FILE * f)
+  - [x] fonction #5
   - [ ] ...
 
 - [ ] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 

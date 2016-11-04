@@ -4,10 +4,11 @@
  * des fonctions declarees dans le fichier 'countries.h'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     3 novembre 2016
+ * @Version     4 novembre 2016
  */
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 #include "countries.h"
 
 /**
@@ -54,8 +55,7 @@ void afficherAide(){
 int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 
     int i;
-    
-    
+        
     for (i = 1 ; i < nbArguments ; i++) {
         if (*p[i] == *chaine) {
             return i;
@@ -64,7 +64,95 @@ int chercherArgument(const char **p, const char *chaine, int nbArguments) {
     return 0;
 }
 
-//int main(int argc, char *argv[]){
-//    return 0;
-//}
+/**
+ * Prend un tableau de caracteres et renvoie la meme chaine en ignorant les
+ * virgules, les guillemets et les crochets.
+ *
+ * @param chaine    la chaine de caracteres a traiter
+ * @return          la chaine de caracteres traitee
+ */
+char * trim(char chaine[]) {
+    
+    int i = 0;
+    int j = 0;
+    char *chaineRetour = malloc(strlen(chaine) + 1); 
+
+    *chaineRetour = *chaineRetour - strlen(chaine) - 1; 
+
+    while(chaine[i] != '\0') {
+        if (chaine[i] != ',' && chaine[i] != '\"' &&
+                chaine[i] != '[' && chaine[i] != ']') {
+            chaineRetour[j] = chaine[i];
+            j++;
+        }
+        i++;
+        
+        
+    }   
+    chaineRetour[j] = '\0';
+    return chaineRetour;
+}
+
+/**
+ * Genere un fichier text a partir des informations contenues dans le fichier
+ * passe en argument (countries.json). Chaque ligne du fichier a pour format
+ * NOM_COMMON_PLAY|CODE_PAYS|CAPITALES|LANGAGE(S)|PAY(S) FRONTALIER(S)|
+ *
+ * @param f     le fichier a lire (../data/countries/countries.json)
+ * @return
+ */
+void genererFichierPays(FILE *f) {
+   
+    FILE *w = fopen("countries.txt", "w");   
+    char ligne[512];
+    char chaine1[256];
+    char chaine2[256];
+
+    while(fgets(ligne,128,f)) {         
+         sscanf(ligne,"%s %[^\n]", chaine1, chaine2);
+
+         if(strcmp(chaine1,"\"common\":") == 0) {         
+             fprintf(w,"%s|", trim(chaine2));
+
+             while(fgets(ligne,128,f)) {
+                sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
+
+                if(strcmp(chaine1, "\"cca3\":") == 0 ||
+                        strcmp(chaine1, "\"capital\":") == 0 ||
+                        strcmp(chaine1, "\"region\":") == 0 ){
+                    fprintf(w, "%s|", trim(chaine2));
+                }
+                else if(strcmp(chaine1, "\"languages\":") == 0) {
+
+                    if(strcmp(chaine2, "{") != 0 ) {
+                        fprintf(w, "|");
+                        continue;
+                    }   
+                    fgets(ligne, 128, f);
+                    sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
+                    fprintf(w, "%s", trim(chaine2));
+                    while(fgets(ligne,128,f)) { 
+                       sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
+                        
+                       if(strcmp(chaine1, "},") == 0) {
+                           break;
+                       }
+                       fprintf(w, ", %s", trim(chaine2));   
+                    }
+                    fprintf(w,"|");
+                }
+                else if(strcmp(chaine1,"\"borders\":") == 0) {
+                    fprintf(w, "%s|\n", trim(chaine2));
+                    break;
+                }
+                
+             }
+         }    
+    }
+    fclose(w);
+}                   
+
+          
+
+                 
 

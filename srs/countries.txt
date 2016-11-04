@@ -1,0 +1,248 @@
+Aruba|ABW|Oranjestad|Americas|Dutch, Papiamento||
+Afghanistan|AFG|Kabul|Asia|Dari, Pashto, Turkmen|IRN PAK TKM UZB TJK CHN|
+Angola|AGO|Luanda|Africa|Portuguese|COG COD ZMB NAM|
+Anguilla|AIA|The Valley|Americas|English||
+\u00c5land Islands|ALA|Mariehamn|Europe|Swedish||
+Albania|ALB|Tirana|Europe|Albanian|MNE GRC MKD UNK|
+Andorra|AND|Andorra la Vella|Europe|Catalan|FRA ESP|
+United Arab Emirates|ARE|Abu Dhabi|Asia|Arabic|OMN SAU|
+Argentina|ARG|Buenos Aires|Americas|Guaran\u00ed, Spanish|BOL BRA CHL PRY URY|
+Armenia|ARM|Yerevan|Asia|Armenian, Russian|AZE GEO IRN TUR|
+American Samoa|ASM|Pago Pago|Oceania|English, Samoan||
+Antarctica|ATA|||||
+French Southern and Antarctic Lands|ATF|Port-aux-Fran\u00e7ais||French||
+Antigua and Barbuda|ATG|Saint John's|Americas|English||
+Australia|AUS|Canberra|Oceania|English||
+Austria|AUT|Vienna|Europe|Austro-Bavarian German|CZE DEU HUN ITA LIE SVK SVN CHE|
+Azerbaijan|AZE|Baku|Asia|Azerbaijani, Russian|ARM GEO IRN RUS TUR|
+Burundi|BDI|Bujumbura|Africa|French, Kirundi|COD RWA TZA|
+Belgium|BEL|Brussels|Europe|German, French, Dutch|FRA DEU LUX NLD|
+Benin|BEN|Porto-Novo|Africa|French|BFA NER NGA TGO|
+Burkina Faso|BFA|Ouagadougou|Africa|French|BEN CIV GHA MLI NER TGO|
+Bangladesh|BGD|Dhaka|Asia|Bengali|MMR IND|
+Bulgaria|BGR|Sofia|Europe|Bulgarian|GRC MKD ROU SRB TUR|
+Bahrain|BHR|Manama|Asia|Arabic||
+Bahamas|BHS|Nassau|Americas|English||
+Bosnia and Herzegovina|BIH|Sarajevo|Europe|Bosnian, Croatian, Serbian|HRV MNE SRB|
+Saint Barth\u00e9lemy|BLM|Gustavia|Americas|French||
+Belarus|BLR|Minsk|Europe|Belarusian, Russian|LVA LTU POL RUS UKR|
+Belize|BLZ|Belmopan|Americas|Belizean Creole, English, Spanish|GTM MEX|
+Bermuda|BMU|Hamilton|Americas|English||
+Bolivia|BOL|Sucre|Americas|Aymara, Guaran\u00ed, Quechua, Spanish|ARG BRA CHL PRY PER|
+Brazil|BRA|Bras\u00edlia|Americas|Portuguese|ARG BOL COL GUF GUY PRY PER SUR URY VEN|
+Barbados|BRB|Bridgetown|Americas|English||
+Brunei|BRN|Bandar Seri Begawan|Asia|Malay|MYS|
+Bhutan|BTN|Thimphu|Asia|Dzongkha|CHN IND|
+Bouvet Island|BVT|||Norwegian||
+Botswana|BWA|Gaborone|Africa|English, Tswana|NAM ZAF ZMB ZWE|
+Central African Republic|CAF|Bangui|Africa|French, Sango|CMR TCD COD COG SSD SDN|
+Canada|CAN|Ottawa|Americas|English, French|USA|
+Cocos (Keeling) Islands|CCK|West Island|Oceania|English||
+Switzerland|CHE|Bern|Europe|French, Swiss German, Italian, Romansh|AUT FRA ITA LIE DEU|
+Chile|CHL|Santiago|Americas|Spanish|ARG BOL PER|
+China|CHN|Beijing|Asia|Chinese|AFG BTN MMR HKG IND KAZ PRK KGZ LAO MAC MNG PAK RUS TJK VNM|
+Ivory Coast|CIV|Yamoussoukro|Africa|French|BFA GHA GIN LBR MLI|
+Cameroon|CMR|Yaound\u00e9|Africa|English, French|CAF TCD COG GNQ GAB NGA|
+DR Congo|COD|Kinshasa|Africa|French, Kikongo, Lingala, Tshiluba, Swahili|AGO BDI CAF COG RWA SSD TZA UGA ZMB|
+Republic of the Congo|COG|Brazzaville|Africa|French, Kikongo, Lingala|AGO CMR CAF COD GAB|
+Cook Islands|COK|Avarua|Oceania|English, Cook Islands M\u0101ori||
+Colombia|COL|Bogot\u00e1|Americas|Spanish|BRA ECU PAN PER VEN|
+Comoros|COM|Moroni|Africa|Arabic, French, Comorian||
+Cape Verde|CPV|Praia|Africa|Portuguese||
+Costa Rica|CRI|San Jos\u00e9|Americas|Spanish|NIC PAN|
+Cuba|CUB|Havana|Americas|Spanish||
+Cura\u00e7ao|CUW|Willemstad|Americas|English, Dutch, Papiamento||
+Christmas Island|CXR|Flying Fish Cove|Oceania|English||
+Cayman Islands|CYM|George Town|Americas|English||
+Cyprus|CYP|Nicosia|Europe|Greek, Turkish|GBR|
+Czech Republic|CZE|Prague|Europe|Czech, Slovak|AUT DEU POL SVK|
+Germany|DEU|Berlin|Europe|German|AUT BEL CZE DNK FRA LUX NLD POL CHE|
+Djibouti|DJI|Djibouti|Africa|Arabic, French|ERI ETH SOM|
+Dominica|DMA|Roseau|Americas|English||
+Denmark|DNK|Copenhagen|Europe|Danish|DEU|
+Dominican Republic|DOM|Santo Domingo|Americas|Spanish|HTI|
+Algeria|DZA|Algiers|Africa|Arabic|TUN LBY NER ESH MRT MLI MAR|
+Ecuador|ECU|Quito|Americas|Spanish|COL PER|
+Egypt|EGY|Cairo|Africa|Arabic|ISR LBY SDN|
+Eritrea|ERI|Asmara|Africa|Arabic, English, Tigrinya|DJI ETH SDN|
+Western Sahara|ESH|El Aai\u00fan|Africa|Berber, Hassaniya, Spanish|DZA MRT MAR|
+Spain|ESP|Madrid|Europe|Catalan, Basque, Galician, Occitan, Spanish|AND FRA GIB PRT MAR|
+Estonia|EST|Tallinn|Europe|Estonian|LVA RUS|
+Ethiopia|ETH|Addis Ababa|Africa|Amharic|DJI ERI KEN SOM SSD SDN|
+Finland|FIN|Helsinki|Europe|Finnish, Swedish|NOR SWE RUS|
+Fiji|FJI|Suva|Oceania|English, Fijian, Fiji Hindi||
+Falkland Islands|FLK|Stanley|Americas|English||
+France|FRA|Paris|Europe|French|AND BEL DEU ITA LUX MCO ESP CHE|
+Faroe Islands|FRO|T\u00f3rshavn|Europe|Danish, Faroese||
+Micronesia|FSM|Palikir|Oceania|English||
+Gabon|GAB|Libreville|Africa|French|CMR COG GNQ|
+United Kingdom|GBR|London|Europe|English|IRL|
+Georgia|GEO|Tbilisi|Asia|Georgian|ARM AZE RUS TUR|
+Guernsey|GGY|St. Peter Port|Europe|English, French, Guern\u00e9siais||
+Ghana|GHA|Accra|Africa|English|BFA CIV TGO|
+Gibraltar|GIB|Gibraltar|Europe|English|ESP|
+Guinea|GIN|Conakry|Africa|French|CIV GNB LBR MLI SEN SLE|
+Guadeloupe|GLP|Basse-Terre|Americas|French||
+Gambia|GMB|Banjul|Africa|English|SEN|
+Guinea-Bissau|GNB|Bissau|Africa|Portuguese|GIN SEN|
+Equatorial Guinea|GNQ|Malabo|Africa|French, Portuguese, Spanish|CMR GAB|
+Greece|GRC|Athens|Europe|Greek|ALB BGR TUR MKD|
+Grenada|GRD|St. George's|Americas|English||
+Greenland|GRL|Nuuk|Americas|Greenlandic||
+Guatemala|GTM|Guatemala City|Americas|Spanish|BLZ SLV HND MEX|
+French Guiana|GUF|Cayenne|Americas|French|BRA SUR|
+Guam|GUM|Hag\u00e5t\u00f1a|Oceania|Chamorro, English, Spanish||
+Guyana|GUY|Georgetown|Americas|English|BRA SUR VEN|
+Hong Kong|HKG|City of Victoria|Asia|English, Chinese|CHN|
+Heard Island and McDonald Islands|HMD|||English||
+Honduras|HND|Tegucigalpa|Americas|Spanish|GTM SLV NIC|
+Croatia|HRV|Zagreb|Europe|Croatian|BIH HUN MNE SRB SVN|
+Haiti|HTI|Port-au-Prince|Americas|French, Haitian Creole|DOM|
+Hungary|HUN|Budapest|Europe|Hungarian|AUT HRV ROU SRB SVK SVN UKR|
+Indonesia|IDN|Jakarta|Asia|Indonesian|TLS MYS PNG|
+Isle of Man|IMN|Douglas|Europe|English, Manx||
+India|IND|New Delhi|Asia|English, Hindi, Tamil|AFG BGD BTN MMR CHN NPL PAK LKA|
+British Indian Ocean Territory|IOT|Diego Garcia|Africa|English||
+Ireland|IRL|Dublin|Europe|English, Irish|GBR|
+Iran|IRN|Tehran|Asia|Persian|AFG ARM AZE IRQ PAK TUR TKM|
+Iraq|IRQ|Baghdad|Asia|Arabic, Aramaic, Sorani|IRN JOR KWT SAU SYR TUR|
+Iceland|ISL|Reykjavik|Europe|Icelandic||
+Israel|ISR|Jerusalem|Asia|Arabic, Hebrew|EGY JOR LBN SYR|
+Italy|ITA|Rome|Europe|Austro-Bavarian German, Italian, Sardinian|AUT FRA SMR SVN CHE VAT|
+Jamaica|JAM|Kingston|Americas|English, Jamaican Patois||
+Jersey|JEY|Saint Helier|Europe|English, French, J\u00e8rriais||
+Jordan|JOR|Amman|Asia|Arabic|IRQ ISR SAU SYR|
+Japan|JPN|Tokyo|Asia|Japanese||
+Kazakhstan|KAZ|Astana|Asia|Kazakh, Russian|CHN KGZ RUS TKM UZB|
+Kenya|KEN|Nairobi|Africa|English, Swahili|ETH SOM SSD TZA UGA|
+Kyrgyzstan|KGZ|Bishkek|Asia|Kyrgyz, Russian|CHN KAZ TJK UZB|
+Cambodia|KHM|Phnom Penh|Asia|Khmer|LAO THA VNM|
+Kiribati|KIR|South Tarawa|Oceania|English, Gilbertese||
+Saint Kitts and Nevis|KNA|Basseterre|Americas|English||
+South Korea|KOR|Seoul|Asia|Korean|PRK|
+Kosovo|UNK|Pristina|Europe|Albanian, Serbian|ALB MKD MNE SRB|
+Kuwait|KWT|Kuwait City|Asia|Arabic|IRQ SAU|
+Laos|LAO|Vientiane|Asia|Lao|MMR KHM CHN THA VNM|
+Lebanon|LBN|Beirut|Asia|Arabic, French|ISR SYR|
+Liberia|LBR|Monrovia|Africa|English|GIN CIV SLE|
+Libya|LBY|Tripoli|Africa|Arabic|DZA TCD EGY NER SDN TUN|
+Saint Lucia|LCA|Castries|Americas|English||
+Liechtenstein|LIE|Vaduz|Europe|German|AUT CHE|
+Sri Lanka|LKA|Colombo|Asia|Sinhala, Tamil|IND|
+Lesotho|LSO|Maseru|Africa|English, Sotho|ZAF|
+Lithuania|LTU|Vilnius|Europe|Lithuanian|BLR LVA POL RUS|
+Luxembourg|LUX|Luxembourg|Europe|German, French, Luxembourgish|BEL FRA DEU|
+Latvia|LVA|Riga|Europe|Latvian|BLR EST LTU RUS|
+Macau|MAC||Asia|Portuguese, Chinese|CHN|
+Saint Martin|MAF|Marigot|Americas|French|SXM|
+Morocco|MAR|Rabat|Africa|Arabic, Berber|DZA ESH ESP|
+Monaco|MCO|Monaco|Europe|French|FRA|
+Moldova|MDA|Chi\u0219in\u0103u|Europe|Moldavian|ROU UKR|
+Madagascar|MDG|Antananarivo|Africa|French, Malagasy||
+Maldives|MDV|Mal\u00e9|Asia|Maldivian||
+Mexico|MEX|Mexico City|Americas|Spanish|BLZ GTM USA|
+Marshall Islands|MHL|Majuro|Oceania|English, Marshallese||
+Macedonia|MKD|Skopje|Europe|Macedonian|ALB BGR GRC UNK SRB|
+Mali|MLI|Bamako|Africa|French|DZA BFA GIN CIV MRT NER SEN|
+Malta|MLT|Valletta|Europe|English, Maltese||
+Myanmar|MMR|Naypyidaw|Asia|Burmese|BGD CHN IND LAO THA|
+Montenegro|MNE|Podgorica|Europe|Montenegrin|ALB BIH HRV UNK SRB|
+Mongolia|MNG|Ulan Bator|Asia|Mongolian|CHN RUS|
+Northern Mariana Islands|MNP|Saipan|Oceania|Carolinian, Chamorro, English||
+Mozambique|MOZ|Maputo|Africa|Portuguese|MWI ZAF SWZ TZA ZMB ZWE|
+Mauritania|MRT|Nouakchott|Africa|Arabic|DZA MLI SEN ESH|
+Montserrat|MSR|Plymouth|Americas|English||
+Martinique|MTQ|Fort-de-France|Americas|French||
+Mauritius|MUS|Port Louis|Africa|English, French, Mauritian Creole||
+Malawi|MWI|Lilongwe|Africa|English, Chewa|MOZ TZA ZMB|
+Malaysia|MYS|Kuala Lumpur|Asia|English, Malay|BRN IDN THA|
+Mayotte|MYT|Mamoudzou|Africa|French||
+Namibia|NAM|Windhoek|Africa|Afrikaans, German, English, Herero, Khoekhoe, Kwangali, Lozi, Ndonga, Tswana|AGO BWA ZAF ZMB|
+New Caledonia|NCL|Noum\u00e9a|Oceania|French||
+Niger|NER|Niamey|Africa|French|DZA BEN BFA TCD LBY MLI NGA|
+Norfolk Island|NFK|Kingston|Oceania|English, Norfuk||
+Nigeria|NGA|Abuja|Africa|English|BEN CMR TCD NER|
+Nicaragua|NIC|Managua|Americas|Spanish|CRI HND|
+Niue|NIU|Alofi|Oceania|English, Niuean||
+Netherlands|NLD|Amsterdam|Europe|Dutch|BEL DEU|
+Norway|NOR|Oslo|Europe|Norwegian Nynorsk, Norwegian Bokm\u00e5l, Sami|FIN SWE RUS|
+Nepal|NPL|Kathmandu|Asia|Nepali|CHN IND|
+Nauru|NRU|Yaren|Oceania|English, Nauru||
+New Zealand|NZL|Wellington|Oceania|English, M\u0101ori, New Zealand Sign Language||
+Oman|OMN|Muscat|Asia|Arabic|SAU ARE YEM|
+Pakistan|PAK|Islamabad|Asia|English, Urdu|AFG CHN IND IRN|
+Panama|PAN|Panama City|Americas|Spanish|COL CRI|
+Pitcairn Islands|PCN|Adamstown|Oceania|English||
+Peru|PER|Lima|Americas|Aymara, Quechua, Spanish|BOL BRA CHL COL ECU|
+Philippines|PHL|Manila|Asia|English, Filipino||
+Palau|PLW|Ngerulmud|Oceania|English, Palauan||
+Papua New Guinea|PNG|Port Moresby|Oceania|English, Hiri Motu, Tok Pisin|IDN|
+Poland|POL|Warsaw|Europe|Polish|BLR CZE DEU LTU RUS SVK UKR|
+Puerto Rico|PRI|San Juan|Americas|English, Spanish||
+North Korea|PRK|Pyongyang|Asia|Korean|CHN KOR RUS|
+Portugal|PRT|Lisbon|Europe|Portuguese|ESP|
+Paraguay|PRY|Asunci\u00f3n|Americas|Guaran\u00ed, Spanish|ARG BOL BRA|
+Palestine|PSE|Ramallah|Asia|Arabic|ISR EGY JOR|
+French Polynesia|PYF|Papeet\u0113|Oceania|French||
+Qatar|QAT|Doha|Asia|Arabic|SAU|
+R\u00e9union|REU|Saint-Denis|Africa|French||
+Romania|ROU|Bucharest|Europe|Romanian|BGR HUN MDA SRB UKR|
+Russia|RUS|Moscow|Europe|Russian|AZE BLR CHN EST FIN GEO KAZ PRK LVA LTU MNG NOR POL UKR|
+Rwanda|RWA|Kigali|Africa|English, French, Kinyarwanda|BDI COD TZA UGA|
+Saudi Arabia|SAU|Riyadh|Asia|Arabic|IRQ JOR KWT OMN QAT ARE YEM|
+Sudan|SDN|Khartoum|Africa|Arabic, English|CAF TCD EGY ERI ETH LBY SSD|
+Senegal|SEN|Dakar|Africa|French|GMB GIN GNB MLI MRT|
+Singapore|SGP|Singapore|Asia|Chinese, English, Malay, Tamil||
+South Georgia|SGS|King Edward Point|Americas|English||
+Svalbard and Jan Mayen|SJM|Longyearbyen|Europe|Norwegian||
+Solomon Islands|SLB|Honiara|Oceania|English||
+Sierra Leone|SLE|Freetown|Africa|English|GIN LBR|
+El Salvador|SLV|San Salvador|Americas|Spanish|GTM HND|
+San Marino|SMR|City of San Marino|Europe|Italian|ITA|
+Somalia|SOM|Mogadishu|Africa|Arabic, Somali|DJI ETH KEN|
+Saint Pierre and Miquelon|SPM|Saint-Pierre|Americas|French||
+Serbia|SRB|Belgrade|Europe|Serbian|BIH BGR HRV HUN UNK MKD MNE ROU|
+South Sudan|SSD|Juba|Africa|English|CAF COD ETH KEN SDN UGA|
+S\u00e3o Tom\u00e9 and Pr\u00edncipe|STP|S\u00e3o Tom\u00e9|Africa|Portuguese||
+Suriname|SUR|Paramaribo|Americas|Dutch|BRA GUF GUY|
+Slovakia|SVK|Bratislava|Europe|Slovak|AUT CZE HUN POL UKR|
+Slovenia|SVN|Ljubljana|Europe|Slovene|AUT HRV ITA HUN|
+Sweden|SWE|Stockholm|Europe|Swedish|FIN NOR|
+Swaziland|SWZ|Lobamba|Africa|English, Swazi|MOZ ZAF|
+Sint Maarten|SXM|Philipsburg|Americas|English, French, Dutch|MAF|
+Seychelles|SYC|Victoria|Africa|Seychellois Creole, English, French||
+Syria|SYR|Damascus|Asia|Arabic|IRQ ISR JOR LBN TUR|
+Turks and Caicos Islands|TCA|Cockburn Town|Americas|English||
+Chad|TCD|N'Djamena|Africa|Arabic, French|CMR CAF LBY NER NGA SSD|
+Togo|TGO|Lom\u00e9|Africa|French|BEN BFA GHA|
+Thailand|THA|Bangkok|Asia|Thai|MMR KHM LAO MYS|
+Tajikistan|TJK|Dushanbe|Asia|Russian, Tajik|AFG CHN KGZ UZB|
+Tokelau|TKL|Fakaofo|Oceania|English, Samoan, Tokelauan||
+Turkmenistan|TKM|Ashgabat|Asia|Russian, Turkmen|AFG IRN KAZ UZB|
+Timor-Leste|TLS|Dili|Asia|Portuguese, Tetum|IDN|
+Tonga|TON|Nuku'alofa|Oceania|English, Tongan||
+Trinidad and Tobago|TTO|Port of Spain|Americas|English||
+Tunisia|TUN|Tunis|Africa|Arabic|DZA LBY|
+Turkey|TUR|Ankara|Asia|Turkish|ARM AZE BGR GEO GRC IRN IRQ SYR|
+Tuvalu|TUV|Funafuti|Oceania|English, Tuvaluan||
+Taiwan|TWN|Taipei|Asia|Chinese||
+Tanzania|TZA|Dodoma|Africa|English, Swahili|BDI COD KEN MWI MOZ RWA UGA ZMB|
+Uganda|UGA|Kampala|Africa|English, Swahili|COD KEN RWA SSD TZA|
+Ukraine|UKR|Kiev|Europe|Russian, Ukrainian|BLR HUN MDA POL ROU RUS SVK|
+United States Minor Outlying Islands|UMI||Americas|English||
+Uruguay|URY|Montevideo|Americas|Spanish|ARG BRA|
+United States|USA|Washington D.C.|Americas|English|CAN MEX|
+Uzbekistan|UZB|Tashkent|Asia|Russian, Uzbek|AFG KAZ KGZ TJK TKM|
+Vatican City|VAT|Vatican City|Europe|Italian, Latin|ITA|
+Saint Vincent and the Grenadines|VCT|Kingstown|Americas|English||
+Venezuela|VEN|Caracas|Americas|Spanish|BRA COL GUY|
+British Virgin Islands|VGB|Road Town|Americas|English||
+United States Virgin Islands|VIR|Charlotte Amalie|Americas|English||
+Vietnam|VNM|Hanoi|Asia|Vietnamese|KHM CHN LAO|
+Vanuatu|VUT|Port Vila|Oceania|Bislama, English, French||
+Wallis and Futuna|WLF|Mata-Utu|Oceania|French||
+Samoa|WSM|Apia|Oceania|English, Samoan||
+Yemen|YEM|Sana'a|Asia|Arabic|OMN SAU|
+South Africa|ZAF|Pretoria|Africa|Afrikaans, English, Southern Ndebele, Northern Sotho, Southern Sotho, Swazi, Tswana, Tsonga, Venda, Xhosa, Zulu|BWA LSO MOZ NAM SWZ ZWE|
+Zambia|ZMB|Lusaka|Africa|English|AGO BWA COD MWI MOZ NAM TZA ZWE|
+Zimbabwe|ZWE|Harare|Africa|Chibarwe, English, Kalanga, Khoisan, Ndau, Northern Ndebele, Chewa, Shona, Sotho, Tonga, Tswana, Tsonga, Venda, Xhosa, Zimbabwean Sign Language|BWA MOZ ZAF ZMB|
