@@ -9,9 +9,28 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
+#define NBPAYS 248
+#define DELIM "|"
 
+//
+// Structures de donnees
+//
+typedef struct Pays {
+    char nom[100];
+    char code[4];
+    char capitale[100];
+    char region[20];
+    char langues[100];
+    char frontieres[100];
+} Pays;
+
+
+//
+// Prototypes
+//
 void afficherAide();
 int chercherArgument(const char **p, const char *chaine, int nbArguments);
 char * trim(char *chaine);
-void genererFichierPays(FILE *f);
+void genererFichierPays();
+Pays *recupererDonneesPays();
 //(char *)retournerChaine(const char **p, int position);

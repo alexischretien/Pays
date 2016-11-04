@@ -52,9 +52,10 @@ Le projet consiste en un programme qui affiche differentes informations sur un o
 
   - [x] void afficherAide()
   - [x] int chercherArgument(const \*\*p, const \*chaine, int argc) 
-  - [x] char * trim(char [] chaine)
-  - [x] void genererFichierPays(FILE * f)
-  - [x] fonction #5
+  - [x] char \* trim(char [] chaine)
+  - [x] void genererFichierPays(FILE \* f)
+  - [x] Pays \* recupererDonneesPays()
+  - [ ] fonction #6
   - [ ] ...
 
 - [ ] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 

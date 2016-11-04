@@ -101,20 +101,21 @@ char * trim(char chaine[]) {
  * @param f     le fichier a lire (../data/countries/countries.json)
  * @return
  */
-void genererFichierPays(FILE *f) {
-   
-    FILE *w = fopen("countries.txt", "w");   
+void genererFichierPays() {
+    
+    FILE *f = fopen("../data/countries/countries.json", "r");
+    FILE *w = fopen("../data/countries.txt", "w");   
     char ligne[512];
     char chaine1[256];
     char chaine2[256];
 
-    while(fgets(ligne,128,f)) {         
+    while(fgets(ligne,512,f)) {         
          sscanf(ligne,"%s %[^\n]", chaine1, chaine2);
 
          if(strcmp(chaine1,"\"common\":") == 0) {         
              fprintf(w,"%s|", trim(chaine2));
 
-             while(fgets(ligne,128,f)) {
+             while(fgets(ligne,512,f)) {
                 sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
 
                 if(strcmp(chaine1, "\"cca3\":") == 0 ||
@@ -128,7 +129,7 @@ void genererFichierPays(FILE *f) {
                         fprintf(w, "|");
                         continue;
                     }   
-                    fgets(ligne, 128, f);
+                    fgets(ligne, 512, f);
                     sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
                     fprintf(w, "%s", trim(chaine2));
                     while(fgets(ligne,128,f)) { 
@@ -147,10 +148,46 @@ void genererFichierPays(FILE *f) {
                 }
                 
              }
-         }    
+         }
     }
+    fclose(f);
     fclose(w);
-}                   
+}
+/**
+ * Fonctions qui traite les donnees contenues dans le fichier 'countries.txt' 
+ * et qui retourne un pointeur de structures Pays contenant toutes les 
+ * informations de tous les pays
+ *
+ * @return      le pointeur de Pays contenant toutes les informations sur
+ *              tous les pays
+ */   
+Pays *recupererDonneesPays() {
+    
+    FILE *f = fopen("../data/countries.txt", "r");
+    char *pt;
+    char ligne[512];
+    int i = 0; 
+    Pays *monde;
+    printf("sizeof(Pays) : %d\n",sizeof(Pays));
+
+    monde = malloc((NBPAYS) * sizeof(Pays));
+ 
+    while(fgets(ligne,512,f)) {
+
+          pt = malloc(strlen(ligne)+1);
+          pt[0] = '\0';
+          strcpy(pt,ligne);
+          strcpy(monde[i].nom, strsep(&pt,DELIM));
+          strcpy(monde[i].code, strsep(&pt, DELIM));
+          strcpy(monde[i].capitale, strsep(&pt, DELIM));
+          strcpy(monde[i].region, strsep(&pt, DELIM));
+          strcpy(monde[i].langues, strsep(&pt, DELIM));
+          strcpy(monde[i].frontieres, strsep(&pt,DELIM));
+        ++i;
+    }
+    return monde;
+}
+                   
 
           
 

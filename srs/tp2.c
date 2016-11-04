@@ -9,6 +9,7 @@
 #include "countries.c"
 #include<stdio.h>
 #include<stdlib.h>
+
 /**
  * Main
  */
@@ -20,13 +21,14 @@ int main(int argc, char *argv[]){
     bool doitAffCap = false;   // Determine si on doit afficher la capitale
     bool doitAffFro = false;   // Determine si on doit afficher les frontaliers
     bool doitAffDra = false;   // Determine si on doit afficher le drapeau
-
-    printf("test01\n");
-    FILE *f = fopen("../data/countries/countries.json","r");
-    printf("test02\n");
-    genererFichierPays(f);
-    fclose(f);
-
+    
+   
+    Pays * monde;
+    
+    genererFichierPays();
+   
+    monde = recupererDonneesPays();
+   
     if(chercherArgument((const char **)argv,"--show-languages\0",argc) != 0) {
         doitAffLan = true;
     }
