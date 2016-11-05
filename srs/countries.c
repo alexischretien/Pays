@@ -9,10 +9,11 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include<jansson.h>
 #include "countries.h"
 
 /**
- * Affiche les informations d'aide lorsque l'argument --help est present
+ * Affiche les informations d'aide lorsque l'argument '--help' est present.
  *
  * @return
  */
@@ -45,19 +46,19 @@ void afficherAide(){
  * caracteres desiree et qui retourne la position de la chaine dans la
  * commande.
  *
- * @param       **p - pointeur de pointeurs de caracteres, pointant au debut
- *              du tableau de chaine de caracteres argv
- * @param       *chaine - chaine recherchee
- * @param       nombre de chaine contenues dans la commande d'execution (argc)              
- * @return      La position de la chaine dans la commande, 0 si la chaine est
- *              absente.
+ * @param p       Pointeur de pointeurs de caracteres, pointant au debut
+ *                du tableau de chaine de caracteres argv
+ * @param chaine  Chaine recherchee
+ * @param         Nombre de chaine contenues dans la commande d'execution (argc)
+ * @return        La position de la chaine dans la commande, 0 si la chaine est
+ *                absente.
  */
 int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 
     int i;
         
     for (i = 1 ; i < nbArguments ; i++) {
-        if (*p[i] == *chaine) {
+        if (strcmp(p[i],chaine) == 0){
             return i;
         }
     }
@@ -65,131 +66,122 @@ int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 }
 
 /**
- * Prend un tableau de caracteres et renvoie la meme chaine en ignorant les
- * virgules, les guillemets et les crochets.
+ * Fonction qui affiche les informations demandee sur tous les pays, les pays 
+ * d'une region en particulier, ou d'un seul pays en fonction de la commande 
+ * entree par l'utilisateur.
  *
- * @param chaine    la chaine de caracteres a traiter
- * @return          la chaine de caracteres traitee
- */
-char * trim(char chaine[]) {
-    
-    int i = 0;
-    int j = 0;
-    char *chaineRetour = malloc(strlen(chaine) + 1); 
-
-    *chaineRetour = *chaineRetour - strlen(chaine) - 1; 
-
-    while(chaine[i] != '\0') {
-        if (chaine[i] != ',' && chaine[i] != '\"' &&
-                chaine[i] != '[' && chaine[i] != ']') {
-            chaineRetour[j] = chaine[i];
-            j++;
-        }
-        i++;
-        
-        
-    }   
-    chaineRetour[j] = '\0';
-    return chaineRetour;
-}
-
-/**
- * Genere un fichier text a partir des informations contenues dans le fichier
- * passe en argument (countries.json). Chaque ligne du fichier a pour format
- * NOM_COMMON_PLAY|CODE_PAYS|CAPITALES|LANGAGE(S)|PAY(S) FRONTALIER(S)|
- *
- * @param f     le fichier a lire (../data/countries/countries.json)
+ * @param paysOuRegion      Chaine de caractere contenant soit le code a trois
+ *                          lettre du pays ou le nom de la region que l'on 
+ *                          souhaite obtenir des informations, ou rien si
+ *                          l'on souhaite obtenir les informations sur tous 
+ *                          les pays.
+ * @param doitAffLan        Determine si l'on doit afficher les langues.
+ * @param doitAffCap        Determine si l'on doit afficher la capitale.
+ * @param doitAffFro        Determine si l'on doit afficher le code a trois 
+ *                          lettres des pays frontaliers.
+ * @param doitAffPay        Determine si l'on doit afficher les informations
+ *                          sur un seul pays en particulier (si 'doitAffPay'
+ *                          et 'doitAffReg' sont tous les deux 'false', doit 
+ *                          Afficher les informations sur tous les pays).
+ * @param doitAffReg        Determine si l'on afficher les informations sur
+ *                          les pays de toutes les regions.
  * @return
  */
-void genererFichierPays() {
-    
+void afficherInfoTexte(const char *paysOuRegion, bool doitAffLan,
+        bool doitAffCap, bool doitAffFro, bool doitAffPay, bool doitAffReg) {
+
     FILE *f = fopen("../data/countries/countries.json", "r");
-    FILE *w = fopen("../data/countries.txt", "w");   
-    char ligne[512];
-    char chaine1[256];
-    char chaine2[256];
+    char *donnees;
+    int i;
+    size_t taille, index;
+    json_error_t erreur;
+    json_t *racine;
+    json_t *array, *element, *obj;
+    json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
+           *objCapitale, *objLangues, *objFrontieres, *tabFrontieres;   
+    const char *nomCommun, *code, *region, *capitale, *langues, *frontieres;
+    void *iter;
 
-    while(fgets(ligne,512,f)) {         
-         sscanf(ligne,"%s %[^\n]", chaine1, chaine2);
+    fseek(f,0,SEEK_END);
+    taille = ftell(f);
 
-         if(strcmp(chaine1,"\"common\":") == 0) {         
-             fprintf(w,"%s|", trim(chaine2));
+    rewind(f);
 
-             while(fgets(ligne,512,f)) {
-                sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
+    donnees = malloc(taille + 1);
+    fread(donnees, taille, 1, f);
+    donnees[taille] = '\0';
+         
+    racine = json_loads(donnees, 0, &erreur);
 
-                if(strcmp(chaine1, "\"cca3\":") == 0 ||
-                        strcmp(chaine1, "\"capital\":") == 0 ||
-                        strcmp(chaine1, "\"region\":") == 0 ){
-                    fprintf(w, "%s|", trim(chaine2));
+    for (i = 0 ; i < json_array_size(racine) ; i++) {
+
+        objPays = json_array_get(racine,i);
+
+        objNom = json_object_get(objPays, "name");
+        objNomCommun = json_object_get(objNom, "common");
+        nomCommun = json_string_value(objNomCommun);     
+
+        objCode = json_object_get(objPays, "cca3");
+        code = json_string_value(objCode);
+
+        objRegion = json_object_get(objPays, "region");
+        region = json_string_value(objRegion);
+       
+        objCapitale = json_object_get(objPays, "capital");
+        capitale = json_string_value(objCapitale);     
+       
+        if (doitAffPay == true && strcasecmp(paysOuRegion, code) == 0 ||   
+            doitAffReg == true && strcasecmp(paysOuRegion, region) == 0 ||
+               (doitAffPay == false && doitAffReg == false)) {
+            printf("Name: %s\n", nomCommun);
+            printf("Code: %s\n", code);
+
+            if (doitAffCap == true) {
+                printf("Capital: %s\n", capitale);
+            }
+            if (doitAffLan == true) {
+                objLangues = json_object_get(objPays, "languages");
+                iter = json_object_iter(objLangues);
+                element = json_object_iter_value(iter);
+                langues = json_string_value(element);
+
+                printf("Languages: %s", langues);
+                iter = json_object_iter_next(objLangues, iter);
+
+                 while(iter != NULL) {
+                    element = json_object_iter_value(iter);
+                    langues = json_string_value(element);
+                    printf(", %s", langues);
+                    iter = json_object_iter_next(objLangues, iter);
+
+                }  
+                printf("\n");
+            }
+            if(doitAffFro == true) {
+                tabFrontieres = json_object_get(objPays, "borders");
+                printf("Borders: ");
+                json_array_foreach(tabFrontieres, index, element) {
+                    frontieres = json_string_value(element);
+                    printf("%s ", frontieres);
                 }
-                else if(strcmp(chaine1, "\"languages\":") == 0) {
+                printf("\n");
+            }
+            printf("-------------------------------\n");
+        }
+    } 
+}    
 
-                    if(strcmp(chaine2, "{") != 0 ) {
-                        fprintf(w, "|");
-                        continue;
-                    }   
-                    fgets(ligne, 512, f);
-                    sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
-                    fprintf(w, "%s", trim(chaine2));
-                    while(fgets(ligne,128,f)) { 
-                       sscanf(ligne, "%s %[^\n]", chaine1, chaine2);
-                        
-                       if(strcmp(chaine1, "},") == 0) {
-                           break;
-                       }
-                       fprintf(w, ", %s", trim(chaine2));   
-                    }
-                    fprintf(w,"|");
-                }
-                else if(strcmp(chaine1,"\"borders\":") == 0) {
-                    fprintf(w, "%s|\n", trim(chaine2));
-                    break;
-                }
-                
-             }
-         }
-    }
-    fclose(f);
-    fclose(w);
-}
-/**
- * Fonctions qui traite les donnees contenues dans le fichier 'countries.txt' 
- * et qui retourne un pointeur de structures Pays contenant toutes les 
- * informations de tous les pays
- *
- * @return      le pointeur de Pays contenant toutes les informations sur
- *              tous les pays
- */   
-Pays *recupererDonneesPays() {
-    
-    FILE *f = fopen("../data/countries.txt", "r");
-    char *pt;
-    char ligne[512];
-    int i = 0; 
-    Pays *monde;
-    printf("sizeof(Pays) : %d\n",sizeof(Pays));
 
-    monde = malloc((NBPAYS) * sizeof(Pays));
- 
-    while(fgets(ligne,512,f)) {
 
-          pt = malloc(strlen(ligne)+1);
-          pt[0] = '\0';
-          strcpy(pt,ligne);
-          strcpy(monde[i].nom, strsep(&pt,DELIM));
-          strcpy(monde[i].code, strsep(&pt, DELIM));
-          strcpy(monde[i].capitale, strsep(&pt, DELIM));
-          strcpy(monde[i].region, strsep(&pt, DELIM));
-          strcpy(monde[i].langues, strsep(&pt, DELIM));
-          strcpy(monde[i].frontieres, strsep(&pt,DELIM));
-        ++i;
-    }
-    return monde;
-}
-                   
 
-          
 
-                 
+
+
+
+
+
+
+
+
+
 
