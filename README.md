@@ -72,10 +72,11 @@ des objets graphiques sous format .dot ou .pgn
   *countries.c*
 
   - [x] void afficherAide()
-  - [x] int chercherArgument(const \*\*p, const \*chaine, int argc) 
-  - [x] void afficherInfoTexte(const char \*paysOuRegion, bool doitAffLan,
-            bool doitAffCap, bool doitAffFro, bool doitAffPay, 
-            bool doitAffReg)
+  - [x] int chercherArgument(const \*\*p, const \*chaine, int argc)
+  - [x] Pays * recupererDonneesPays() 
+  - [x] void afficherInfoTexte(Pays \* pays, const char \*paysOuReg, 
+            bool doitAffPays, bool doitAffReg, bool doitAffLan,
+            bool doitAffCap, bool doitAffFro)
   - [ ] fonction #4
   - [ ] ...
 

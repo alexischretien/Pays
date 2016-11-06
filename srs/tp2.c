@@ -17,17 +17,20 @@
 int main(int argc, char *argv[]){
  
     int position = 0;     // position des arguments recherchees
-    char *paysOuRegion;
+    char *paysOuReg;
     bool doitAffLan = false;   // Determine si on doit afficher les langues
                                // officiels
     bool doitAffCap = false;   // Determine si on doit afficher la capitale
     bool doitAffFro = false;   // Determine si on doit afficher les frontaliers
     bool doitAffDra = false;   // Determine si on doit afficher le drapeau
-    bool doitAffPay = false;   // Determine si on doit afficher un pays en
+    bool doitAffPays = false;   // Determine si on doit afficher un pays en
                                // particulier
     bool doitAffReg = false;   // Determine si on doit afficher tous les pays
-                               // d'une region donnee   
-    
+                               // d'une region donnee
+    printf("sizeof(pays): %d\n", sizeof(Pays));   
+    Pays *pays;
+    pays = malloc(sizeof(Pays) * NBPAYS);
+
     if(chercherArgument((const char **)argv,"--help\0",argc) != 0) {
         printf("%d\n",position);
         afficherAide();
@@ -47,22 +50,29 @@ int main(int argc, char *argv[]){
     }
     position = chercherArgument((const char **)argv,"--country\0",argc);
     if(position != 0) {
-        paysOuRegion = malloc(strlen(argv[position+1]));
-        paysOuRegion[0] = '\0';
-        strcpy(paysOuRegion,argv[position+1]);
-        doitAffPay = true;
+        paysOuReg = malloc(strlen(argv[position+1]));
+        paysOuReg[0] = '\0';
+        strcpy(paysOuReg,argv[position+1]);
+        doitAffPays = true;
     }
     else {
         position = chercherArgument((const char **)argv, "--region\0",argc);
         if(position != 0) {
-            paysOuRegion = malloc(strlen(argv[position+1]));
-            paysOuRegion[0] = '\0';
-            strcpy(paysOuRegion,argv[position+1]);  
+            paysOuReg = malloc(strlen(argv[position+1]));
+            paysOuReg[0] = '\0';
+            strcpy(paysOuReg,argv[position+1]);  
             doitAffReg = true;        
         }   
     }
-    afficherInfoTexte(paysOuRegion, doitAffLan, doitAffCap, doitAffFro, 
-                        doitAffPay, doitAffReg);
+    pays = recupererDonneesPays();
+    printf("size dans main : %d\n", sizeof(pays));
+    afficherInfoTexte(pays, paysOuReg, doitAffPays, doitAffReg, doitAffLan,
+            doitAffCap, doitAffFro);
+ //   printf("test array pays : %s\n", pays[1].nom);
+ //   printf("testfdefewfeerg : %s\n", pays[0].frontieres);
+ //   printf("test array pays 2 : %s\n", pays[1].frontieres);
+ //   printf("test array f3fe3: %s\n", pays[2].frontieres);
+
     return 0;
 }
 

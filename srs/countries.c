@@ -66,32 +66,18 @@ int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 }
 
 /**
- * Fonction qui affiche les informations demandee sur tous les pays, les pays 
- * d'une region en particulier, ou d'un seul pays en fonction de la commande 
- * entree par l'utilisateur.
+ * Fonction qui retourne un pointeur de pays contenant les informations 
+ * relatives au noms commun, au code a trois lettres, a la region, a la
+ * capitale, aux langues et aux pays frontaliers de tous les pays documentes
+ * dans le fichier '../data/countries/countries.json'.
  *
- * @param paysOuRegion      Chaine de caractere contenant soit le code a trois
- *                          lettre du pays ou le nom de la region que l'on 
- *                          souhaite obtenir des informations, ou rien si
- *                          l'on souhaite obtenir les informations sur tous 
- *                          les pays.
- * @param doitAffLan        Determine si l'on doit afficher les langues.
- * @param doitAffCap        Determine si l'on doit afficher la capitale.
- * @param doitAffFro        Determine si l'on doit afficher le code a trois 
- *                          lettres des pays frontaliers.
- * @param doitAffPay        Determine si l'on doit afficher les informations
- *                          sur un seul pays en particulier (si 'doitAffPay'
- *                          et 'doitAffReg' sont tous les deux 'false', doit 
- *                          Afficher les informations sur tous les pays).
- * @param doitAffReg        Determine si l'on afficher les informations sur
- *                          les pays de toutes les regions.
- * @return
+ * @return      Le pointeur de pays 
  */
-void afficherInfoTexte(const char *paysOuRegion, bool doitAffLan,
-        bool doitAffCap, bool doitAffFro, bool doitAffPay, bool doitAffReg) {
+Pays * recupererDonneesPays() {
 
     FILE *f = fopen("../data/countries/countries.json", "r");
     char *donnees;
+    char *bufferLan[NBPAYS], *bufferFro[NBPAYS];
     int i;
     size_t taille, index;
     json_error_t erreur;
@@ -99,8 +85,12 @@ void afficherInfoTexte(const char *paysOuRegion, bool doitAffLan,
     json_t *array, *element, *obj;
     json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
            *objCapitale, *objLangues, *objFrontieres, *tabFrontieres;   
-    const char *nomCommun, *code, *region, *capitale, *langues, *frontieres;
+    const char *nomCommun[NBPAYS], *code[NBPAYS], *region[NBPAYS], 
+          *capitale[NBPAYS], *langues[NBPAYS], *frontieres[NBPAYS];
     void *iter;
+
+    Pays pays[NBPAYS];
+    Pays *paysRetour;
 
     fseek(f,0,SEEK_END);
     taille = ftell(f);
@@ -119,69 +109,93 @@ void afficherInfoTexte(const char *paysOuRegion, bool doitAffLan,
 
         objNom = json_object_get(objPays, "name");
         objNomCommun = json_object_get(objNom, "common");
-        nomCommun = json_string_value(objNomCommun);     
+        nomCommun[i] = json_string_value(objNomCommun);     
+        pays[i].nom = nomCommun[i];
 
         objCode = json_object_get(objPays, "cca3");
-        code = json_string_value(objCode);
+        code[i] = json_string_value(objCode);
+        pays[i].code = code[i];
 
         objRegion = json_object_get(objPays, "region");
-        region = json_string_value(objRegion);
-       
-        objCapitale = json_object_get(objPays, "capital");
-        capitale = json_string_value(objCapitale);     
-       
-        if (doitAffPay == true && strcasecmp(paysOuRegion, code) == 0 ||   
-            doitAffReg == true && strcasecmp(paysOuRegion, region) == 0 ||
-               (doitAffPay == false && doitAffReg == false)) {
-            printf("Name: %s\n", nomCommun);
-            printf("Code: %s\n", code);
+        region[i] = json_string_value(objRegion);
+        pays[i].region = region[i];
 
+        objCapitale = json_object_get(objPays, "capital");
+        capitale[i] = json_string_value(objCapitale);     
+        pays[i].capitale = capitale[i];
+
+        objLangues = json_object_get(objPays, "languages");
+        iter = json_object_iter(objLangues);
+        element = json_object_iter_value(iter);
+        langues[i] = json_string_value(element);
+        bufferLan[i] = calloc(sizeof(char), 150);
+        bufferLan[i] = (char *)langues[i];
+        iter = json_object_iter_next(objLangues, iter);
+        while(iter != NULL) {
+            element = json_object_iter_value(iter);
+            langues[i] = json_string_value(element);
+            iter = json_object_iter_next(objLangues, iter);
+            strncat(bufferLan[i], ", ", 3);
+            strncat(bufferLan[i], langues[i], strlen(langues[i]) + 1);
+        }
+        strncat(bufferLan[i], "\0", 1);
+
+        pays[i].langues = bufferLan[i];
+
+        tabFrontieres = json_object_get(objPays, "borders");
+        bufferFro[i] = calloc(sizeof(char),50);
+        json_array_foreach(tabFrontieres, index, element) {
+            frontieres[i] = json_string_value(element);
+            strncat(bufferFro[i], frontieres[i], strlen(frontieres[i]));
+            strncat(bufferFro[i], " ", 1);
+        }
+        strncat(bufferFro[i], "\0", 1);
+        pays[i].frontieres = bufferFro[i];
+    } 
+    paysRetour = pays;
+    return paysRetour;
+}    
+
+/**
+ * Fonction qui affiche a la sortie standard les informations demandes pour
+ * un pays, pour les pays d'une region ou pour tous les pays.
+ *
+ * @param *pays       Pointeur de pays contenant toutes les informations sur
+ *                    tous les pays.
+ * @param *paysOuReg  Le code a trois lettre ou le nom de la region du/des pays 
+ *                    demandes. Vide si la fonction doit afficher tous les pays.
+ * @param doitAffPays Determine si la fonction doit afficher un pays en 
+ *                    particulier (et seulement ce pays).
+ * @param doitAffReg  Determine si la fonction doit afficher les pays d'une 
+ *                    region en particulier. (NB : si 'doitAffPays' et 
+ *                    'doitAffReg' tout deux 'false', la fonction doit afficher
+ *                    les informations demandees pour tous les pays.
+ * @param doitAffLan  Determine si la fonction doit afficher les langues.
+ * @param doitAffCap  Determine si la fonction doit afficher la capitale.
+ * @param doitAffFro  Determine si la fonction doit afficher les pays 
+ *                    frontaliers.
+ */
+void afficherInfoTexte(Pays *pays, const char* paysOuReg, bool doitAffPays,
+        bool doitAffReg, bool doitAffLan, bool doitAffCap, bool doitAffFro) {
+    int i;
+    printf("size dans afficher: %d\n", sizeof(pays));
+    for (i = 0 ; i < NBPAYS ; i++) {
+        if (doitAffPays == true && strcasecmp(paysOuReg, pays[i].code) == 0  ||
+                doitAffReg==true && strcasecmp(paysOuReg, pays[i].region)==0 ||
+                (doitAffPays == false && doitAffReg == false)) {
+            printf("Name: %s\n", pays[i].nom);
+            printf("Code: %s\n", pays[i].code);
             if (doitAffCap == true) {
-                printf("Capital: %s\n", capitale);
+                printf("Capital: %s\n", pays[i].capitale);
             }
             if (doitAffLan == true) {
-                objLangues = json_object_get(objPays, "languages");
-                iter = json_object_iter(objLangues);
-                element = json_object_iter_value(iter);
-                langues = json_string_value(element);
-
-                printf("Languages: %s", langues);
-                iter = json_object_iter_next(objLangues, iter);
-
-                 while(iter != NULL) {
-                    element = json_object_iter_value(iter);
-                    langues = json_string_value(element);
-                    printf(", %s", langues);
-                    iter = json_object_iter_next(objLangues, iter);
-
-                }  
-                printf("\n");
+                printf("Languages: %s\n", pays[i].langues);
             }
-            if(doitAffFro == true) {
-                tabFrontieres = json_object_get(objPays, "borders");
-                printf("Borders: ");
-                json_array_foreach(tabFrontieres, index, element) {
-                    frontieres = json_string_value(element);
-                    printf("%s ", frontieres);
-                }
-                printf("\n");
-            }
+            if (doitAffFro == true) {
+                printf("Borders: %s\n", pays[i].frontieres);
+            } 
             printf("-------------------------------\n");
         }
     } 
-}    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

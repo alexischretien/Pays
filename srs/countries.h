@@ -10,12 +10,26 @@
 #include<stdbool.h>
 #include<string.h>
 #include<jansson.h>
+#define NBPAYS 248
 
+//
+// Structure
+//
+typedef struct {
+    const char *nom;
+    const char *code;
+    const char *capitale;
+    const char *region;
+    const char *langues;
+    const char *frontieres;
+} Pays;
+//
 //
 // Prototypes
 //
 void afficherAide();
 int chercherArgument(const char **p, const char *chaine, int nbArguments);
-void afficherInfoTexte(const char *paysOuRegion, bool doitAffLan,
-        bool doitAffCap, bool doitAffFro, bool doitAffPay, bool doitAffReg);
+Pays * recupererDonneesPays();
+void afficherInfoTexte(Pays *pays, const char *paysOuReg, bool doitAffPays,
+        bool doitAffReg, bool doitAffLan, bool doitAffCap, bool doitAffFro);
 
