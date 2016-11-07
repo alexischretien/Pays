@@ -4,13 +4,13 @@
  * des differentes fonctions du fichier 'countries.c'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     4 novembre 2016 
+ * @Version     6 novembre 2016 
  */
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
 #include<jansson.h>
-#define NBPAYS 248
+#define NBPAYS 249
 
 //
 // Structure
@@ -29,7 +29,11 @@ typedef struct {
 //
 void afficherAide();
 int chercherArgument(const char **p, const char *chaine, int nbArguments);
-Pays * recupererDonneesPays();
-void afficherInfoTexte(Pays *pays, const char *paysOuReg, bool doitAffPays,
-        bool doitAffReg, bool doitAffLan, bool doitAffCap, bool doitAffFro);
-
+Pays * recupererDonneesPays(const char *cle, bool doitAffPays, 
+        bool doitAffReg);
+void afficherFormatTexte(Pays *pays, bool doitAffLan,bool doitAffCap, 
+        bool doitAffFro);
+void genererFichierFormatTexte(Pays *pays, const char *nomFichier,
+        bool doitAffLan, bool doitAffCap, bool doitAffFro);
+void afficherFormatDot(Pays *pays, bool doitAffLan, bool doitAffCap, 
+        bool doitAffFro, bool doitAffDra);

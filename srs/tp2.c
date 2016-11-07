@@ -3,7 +3,7 @@
  * tp2.c - Fichier source C de l'executable
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     4 novembre 2016
+ * @Version     6 novembre 2016
  */
 
 #include "countries.c"
@@ -14,10 +14,12 @@
 /**
  * Main
  */
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
  
     int position = 0;     // position des arguments recherchees
-    char *paysOuReg;
+    char *cle;
+    char *formatSortie = FORMATPARDEFAUT;
+    char *nomFichier;
     bool doitAffLan = false;   // Determine si on doit afficher les langues
                                // officiels
     bool doitAffCap = false;   // Determine si on doit afficher la capitale
@@ -26,16 +28,25 @@ int main(int argc, char *argv[]){
     bool doitAffPays = false;   // Determine si on doit afficher un pays en
                                // particulier
     bool doitAffReg = false;   // Determine si on doit afficher tous les pays
-                               // d'une region donnee
-    printf("sizeof(pays): %d\n", sizeof(Pays));   
+                               // d'une region donnee 
     Pays *pays;
-    pays = malloc(sizeof(Pays) * NBPAYS);
-
+    
     if(chercherArgument((const char **)argv,"--help\0",argc) != 0) {
         printf("%d\n",position);
         afficherAide();
         return 0;
-    } 
+    }
+    position = chercherArgument((const char**)argv,"--output-format\0", argc);  
+    if(position != 0) {
+        formatSortie = argv[position + 1];
+    }
+    position = chercherArgument((const char**)argv,"--output-filename\0",argc);
+    if(position != 0) {
+        nomFichier = argv[position + 1];
+    }
+    else {
+        nomFichier = "\0";
+    }   
     if(chercherArgument((const char **)argv,"--show-languages\0",argc) != 0) {
         doitAffLan = true;
     }
@@ -50,29 +61,36 @@ int main(int argc, char *argv[]){
     }
     position = chercherArgument((const char **)argv,"--country\0",argc);
     if(position != 0) {
-        paysOuReg = malloc(strlen(argv[position+1]));
-        paysOuReg[0] = '\0';
-        strcpy(paysOuReg,argv[position+1]);
+        cle = argv[position + 1];
         doitAffPays = true;
     }
     else {
         position = chercherArgument((const char **)argv, "--region\0",argc);
         if(position != 0) {
-            paysOuReg = malloc(strlen(argv[position+1]));
-            paysOuReg[0] = '\0';
-            strcpy(paysOuReg,argv[position+1]);  
+            cle = argv[position + 1]; 
             doitAffReg = true;        
         }   
     }
-    pays = recupererDonneesPays();
-    printf("size dans main : %d\n", sizeof(pays));
-    afficherInfoTexte(pays, paysOuReg, doitAffPays, doitAffReg, doitAffLan,
-            doitAffCap, doitAffFro);
- //   printf("test array pays : %s\n", pays[1].nom);
- //   printf("testfdefewfeerg : %s\n", pays[0].frontieres);
- //   printf("test array pays 2 : %s\n", pays[1].frontieres);
- //   printf("test array f3fe3: %s\n", pays[2].frontieres);
+  
 
+    pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
+
+    if (strcmp(formatSortie, "text\0") == 0) {
+        if (strcmp(nomFichier,"\0") == 0) {
+            afficherFormatTexte(pays, doitAffLan, doitAffCap, doitAffFro);
+        }         
+        else {
+            printf("Nom fichier: %s\n", nomFichier);
+            genererFichierFormatTexte(pays, nomFichier, doitAffLan, doitAffCap,
+                    doitAffFro);      
+        } 
+    }
+    else if(strcmp(formatSortie, "dot\0") == 0) {
+        if (strcmp(nomFichier, "\0") == 0) {
+            afficherFormatDot(pays, doitAffLan, doitAffCap, doitAffFro, 
+                    doitAffDra);
+        }
+    }
     return 0;
 }
 
