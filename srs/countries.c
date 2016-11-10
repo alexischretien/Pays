@@ -4,7 +4,7 @@
  * des fonctions declarees dans le fichier 'countries.h'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     6 novembre 2016
+ * @Version     10 novembre 2016
  */
 #include<stdlib.h>
 #include<stdio.h>
@@ -12,11 +12,7 @@
 #include<jansson.h>
 #include "countries.h"
 #define FORMATPARDEFAUT "text\0"
-/**
- * Affiche les informations d'aide lorsque l'argument '--help' est present.
- *
- * @return
- */
+
 void afficherAide(){
     printf("Usage: bin/tp2 [--help] [--output-format FORMAT] [--output-filename FILENAME]\n");
     printf(" [--show-languages] [--show-capital] [--show-borders] [--show-flag]\n");
@@ -41,19 +37,6 @@ void afficherAide(){
     printf("                             \"asia\", \"europe\" and \"oceania\".\n");
 } 
 
-/**
- * Fonction qui verifie si la commande d'execution contient le chaine de 
- * caracteres desiree et qui retourne la position de la chaine dans la
- * commande.
- *
- * @param p             Pointeur de pointeurs de caracteres, pointant au debut
- *                      du tableau de chaine de caracteres argv.
- * @param chaine        Chaine recherchee.
- * @param nbArguments   Nombre de chaine contenues dans la commande d'execution
- *                      (argc).
- * @return              La position de la chaine dans la commande, 0 si la 
- *                      chaine est absente.
- */
 int chercherArgument(const char **p, const char *chaine, int nbArguments) {
 
     int i;
@@ -66,39 +49,22 @@ int chercherArgument(const char **p, const char *chaine, int nbArguments) {
     return 0;
 }
 
-/**
- * Fonction qui retourne un pointeur de pays contenant les informations 
- * relatives au noms commun, au code a trois lettres, a la region, a la
- * capitale, aux langues et aux pays frontaliers d'un pays, de tous les pays 
- * d'une region ou de tous les pays contenus dans le fichier JSON.
- *
- * @param *cle          chaine de caractere contenant soit le code a trois
- *                      chiffre du pays recherche (si on ne cherche qu'un seul
- *                      pays), le nom de la region des pays recherches, ou rien
- *                      si la fonction doit traiter tous les pays.
- * @param doitAffPays   Determine si la fonction doit recuperer les informations
- *                      d'un seul pays.
- * @param doitAffReg    Determine si la fonction doit recuperer les informations
- *                      de tous les pays d'une region (NB : si 'doitAffPays' et
- *                      'doitAffRegions' tous les deux 'false', alors la 
- *                      fonction recupere les informations sur tous les pays.       
- * @return              Le pointeur de pays contenant les informations du ou 
- *                      des pays desires. 
- */
 Pays * recupererDonneesPays(const char* cle, bool doitAffPays, 
         bool doitAffReg) {
 
     FILE *f = fopen("../data/countries/countries.json", "r");
     char *donnees;
     char *bufferLan[NBPAYS], *bufferFro[NBPAYS];
-    int i, j;
+    int i; 
+    int j;
+    int k;
     size_t taille, index;
     json_error_t erreur;
     json_t *racine, *element;
     json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
            *objCapitale, *objLangues, *objFrontieres, *tabFrontieres;   
     const char *nomCommun[NBPAYS], *code[NBPAYS], *region[NBPAYS], 
-          *capitale[NBPAYS], *langues[NBPAYS], *frontieres[NBPAYS];
+           *capitale[NBPAYS], *langues[NBPAYS];
     void *iter;
 
     Pays pays[NBPAYS];
@@ -117,26 +83,30 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     j = 0;
 
     for (i = 0 ; i < json_array_size(racine) ; i++) {
-
+        
         objPays = json_array_get(racine,i);
-
+        
         objCode = json_object_get(objPays, "cca3");
         code[i] = json_string_value(objCode);
 
         objRegion = json_object_get(objPays, "region");
         region[i] = json_string_value(objRegion);
 
-        if (doitAffPays == true && strcasecmp(cle, code[i]) == 0 ||
-                doitAffReg == true && strcasecmp(cle, region[i]) == 0 ||
-                doitAffPays == false && doitAffPays == false) {
-
+        if ((doitAffPays == true && strcasecmp(cle, code[i]) == 0) ||
+                (doitAffReg == true && strcasecmp(cle, region[i]) == 0) ||
+                (doitAffPays == false && doitAffReg == false)) {
+           
+            pays[j].code = code[i];
+            pays[j].region = region[i];
+            
             objNom = json_object_get(objPays, "name");
             objNomCommun = json_object_get(objNom, "common");
             nomCommun[i] = json_string_value(objNomCommun);
+            pays[j].nom = nomCommun[i];
 
             objCapitale = json_object_get(objPays, "capital");
             capitale[i] = json_string_value(objCapitale);     
-            pays[i].capitale = capitale[i];
+            pays[j].capitale = capitale[i];
 
             objLangues = json_object_get(objPays, "languages");
             iter = json_object_iter(objLangues);
@@ -145,6 +115,7 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
             bufferLan[i] = calloc(sizeof(char), 150);
             bufferLan[i] = (char *)langues[i];
             iter = json_object_iter_next(objLangues, iter);
+
             while(iter != NULL) {
                 element = json_object_iter_value(iter);
                 langues[i] = json_string_value(element);
@@ -153,23 +124,18 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
                 strncat(bufferLan[i], langues[i], strlen(langues[i]) + 1);
             }
             strncat(bufferLan[i], "\0", 1);
+            pays[j].langues = bufferLan[i];
 
             tabFrontieres = json_object_get(objPays, "borders");
-            bufferFro[i] = calloc(sizeof(char),100);
+
+            k = 0;
             json_array_foreach(tabFrontieres, index, element) {
-                frontieres[i] = json_string_value(element);
-                strncat(bufferFro[i], frontieres[i], strlen(frontieres[i]));
-                strncat(bufferFro[i], " ", 1);
+               pays[j].frontieres[k] = json_string_value(element);
+               ++k;
             }
-            strncat(bufferFro[i], "\0", 1);
+            pays[j].frontieres[k] = "\0";
+            ++j;
         }
-        pays[j].nom = nomCommun[i];
-        pays[j].code = code[i];
-        pays[j].region = region[i];
-        pays[j].capitale = capitale[i];
-        pays[j].langues = bufferLan[i];
-        pays[j].frontieres = bufferFro[i];
-        ++j;
     }
     free(donnees); 
     pays[j].nom = "\0";
@@ -177,67 +143,23 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     pays[j].region = "\0";
     pays[j].capitale = "\0";
     pays[j].langues = "\0";
-    pays[j].frontieres = "\0";
+    pays[j].frontieres[0] = "\0";
 
     paysRetour = pays;
     return paysRetour;
 }    
 
-/**
- * Fonction qui affiche a la sortie standard les informations demandees pour
- * le ou les pays contenus dans le pointeur de pays.
- *
- * @param *pays       Pointeur de pays contenant les informations sur le
- *                    ou les pays a traiter.
- * @param doitAffLan  Determine si la fonction doit afficher les langues.
- * @param doitAffCap  Determine si la fonction doit afficher la capitale.
- * @param doitAffFro  Determine si la fonction doit afficher les pays 
- *                    frontaliers.
- */
-void afficherFormatTexte(Pays *pays, bool doitAffLan, bool doitAffCap, 
-        bool doitAffFro) {
+void traiterFormatTexte(Pays *pays, const char *nomFichier, bool doitAffLan, 
+        bool doitAffCap, bool doitAffFro) {
 
     int i = 0;
-    
-    while(strcmp(pays[i].code, "\0") != 0) {  
-        printf("i: %d\n", i);        
-        printf("Name: %s\n", pays[i].nom);
-        printf("Code: %s\n", pays[i].code);
-        if (doitAffCap == true) {
-            printf("Capital: %s\n", pays[i].capitale);
-        }
-        if (doitAffLan == true) {
-            printf("Languages: %s\n", pays[i].langues);
-        }
-        if (doitAffFro == true) {
-            printf("Borders: %s\n", pays[i].frontieres);
-        } 
-        printf("------------------------------\n");
-        ++i;
-        
-    } 
-}
-/**
- * Genere un fichier contenant les informations en format texte pour le ou les 
- * pays contenus dans le pointeur de pays.
- *
- * @param *pays         Pointeur pointant vers le ou les pays.
- * @param *nomFichier   Le nom du fichier cree.
- * @param doitAffLan    Determine si la fonction doit imprimer les langues 
- * @param doitAffCap    Determine si la fonction doit imprimer la capitale
- * @param doitAffFro    Determine si la fonction doit imprimer les pays
- *                      frontaliers
- * @return
- */
-void genererFichierFormatTexte(Pays *pays, const char *nomFichier, 
-        bool doitAffLan, bool doitAffCap, bool doitAffFro) {
-    
-    printf("test1\n");
-    FILE *f;
-    f = fopen(nomFichier,"w");
-    int i = 0;
+    int j;
+    FILE *f = stdout;
 
-    while(strcmp(pays[i].code, "\0") != 0) {
+    if(strcmp(nomFichier, "\0") != 0) {
+        f = fopen(nomFichier, "w");
+    }   
+    while(strcmp(pays[i].code, "\0") != 0) {          
         fprintf(f, "Name: %s\n", pays[i].nom);
         fprintf(f, "Code: %s\n", pays[i].code);
         if (doitAffCap == true) {
@@ -246,59 +168,89 @@ void genererFichierFormatTexte(Pays *pays, const char *nomFichier,
         if (doitAffLan == true) {
             fprintf(f, "Languages: %s\n", pays[i].langues);
         }
+        
         if (doitAffFro == true) {
-            fprintf(f, "Borders: %s\n", pays[i].frontieres);
-        }
-        fprintf(f, "------------------------------\n");
-        ++i;
+            fputs("Borders:", f);
+            j = 0;
+            while(strcmp(pays[i].frontieres[j], "\0") != 0) {
+                fprintf(f, " %s", pays[i].frontieres[j]);
+                ++j;
+            }
+            fprintf(f, "\n");
+        } 
+        fputs("------------------------------\n", f);
+        ++i;       
     }
-    fclose(f);
+   if(strcmp(nomFichier, "\0") != 0) {
+      fclose(f);
+   } 
 }
 
-/*
- * Affiche a la sortie standard les informations en format dot pour le ou les 
- * pays contenus dans le pointeur de pays.
- *
- * @param *pays         Pointeur pointant vers le ou les pays.
- * @param doitAffLan    Determine si la fonction doit afficher les langues
- * @param doitAffCap    Determine si la fonction doit afficher la capitale
- * @param doitAffFro    Determine si la fonction doit afficher les pays 
- *                      frontaliers
- * @param doitAffDra    Determine si la fonction doit afficher le drapeau
- * @return
- */
-void afficherFormatDot(Pays *pays, bool doitAffLan, bool doitAffCap, 
-        bool doitAffFro, bool doitAffDra) {
-    
-    int i, j;
-    char codeMin[4];
-            printf("graph {\n");
+void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan, 
+        bool doitAffCap, bool doitAffFro, bool doitAffDra) {
+  
+    int i = 0;
+    int j, k;
+    char codeMin[NBPAYS][4];
+    FILE *f = stdout;
+
+    if (strcmp(nomFichier, "\0") != 0) {
+        f = fopen(nomFichier, "w");
+    }
+    fputs("graph {\n", f);
     while(strcmp(pays[i].code, "\0") != 0) {
-        for(j = 0 ; j < sizeof(codeMin) ; j++) {
-            codeMin[j] = tolower(pays[i].code[j]);
+        
+        for(j = 0 ; j < 4 ; j++) {
+            codeMin[i][j] = tolower(pays[i].code[j]);
         }
-        printf("    %s [\n", codeMin); 
-        printf("        shape = none,\n");
-        printf("        label = <<table border=\"0\" cellspacing=\"0\">\n");
+
+        fprintf(f, "    %s [\n", codeMin[i]); 
+        fputs("        shape = none,\n", f);
+        fputs("        label = <<table border=\"0\" cellspacing=\"0\">\n", f);
         if (doitAffDra == true) {
-            printf("            <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\">\n");
-            printf("              <img src=\"../data/countries/data/%s.png\" scale=\"trie\"/>\n",codeMin);
-            printf("            </td></tr>\n");
+            fputs("            <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\">", f);
+            fprintf(f, "<img src=\"../data/countries/data/%s.png\" scale=\"trie\"/>", codeMin[i]);
+            fputs("</td></tr>\n", f);
         }
-        printf("            <tr><td align=\"left\" border=\"1\"><b>Name</b>: %s</td></tr>\n", pays[i].nom);
-        printf("            <tr><td align=\"left\" border=\"1\"><b>Code</b>: %s</td></tr>\n", pays[i].code);
+        fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Name</b>: %s</td></tr>\n", pays[i].nom);
+        fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Code</b>: %s</td></tr>\n", pays[i].code);
         if (doitAffCap == true) {
-            printf("            <tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>\n", pays[i].capitale);
+            fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>\n", pays[i].capitale);
         }
         if (doitAffLan == true) {
-            printf("            <tr><td align=\"left\" border=\"1\"><b>Languages</b>: %s</td></tr>\n", pays[i].langues);
+            fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Languages</b>: %s</td></tr>\n", pays[i].langues);
         }
         if (doitAffFro == true) {
-            printf("            <tr>td align=\"left\" border=\"1\"><b>Borders</b>: %s</td></tr>\n", pays[i].frontieres);
+            fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Borders</b>:");
+            k = 0;
+            while(strcmp(pays[i].frontieres[k], "\0") != 0) {
+                fprintf(f, " %s", pays[i].frontieres[k]);
+                ++k;
+            }
+            fputs("</td></tr>\n", f);
         }
-        printf("        </table>>\n");
-        printf("    ];\n");
+        fputs("        </table>>\n", f);
+        fputs("    ];\n", f);
         ++i;
     }
-    printf("}\n");
+    i = 0;
+    while(strcmp(pays[i].code, "\0") != 0) {
+        j = i + 1;
+        while(strcmp(pays[j].code, "\0") != 0) {
+            k = 0;
+            while(strcmp(pays[j].frontieres[k], "\0") != 0) {
+                if(strcmp(pays[i].code, pays[j].frontieres[k]) == 0) {
+                    fprintf(f, "%s -- %s;\n", codeMin[i], codeMin[j]);
+                }
+                ++k;
+            } 
+            ++j;
+        }
+        ++i;
+    }
+    fputs("}\n", f);
+    
+    if(strcmp(nomFichier, "\0") != 0) {
+        fclose(f);
+    }
 }

@@ -3,7 +3,7 @@
  * tp2.c - Fichier source C de l'executable
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     6 novembre 2016
+ * @Version     10 novembre 2016
  */
 
 #include "countries.c"
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         nomFichier = "\0";
-    }   
+    }  
     if(chercherArgument((const char **)argv,"--show-languages\0",argc) != 0) {
         doitAffLan = true;
     }
@@ -72,24 +72,15 @@ int main(int argc, char *argv[]) {
         }   
     }
   
-
     pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
 
     if (strcmp(formatSortie, "text\0") == 0) {
-        if (strcmp(nomFichier,"\0") == 0) {
-            afficherFormatTexte(pays, doitAffLan, doitAffCap, doitAffFro);
-        }         
-        else {
-            printf("Nom fichier: %s\n", nomFichier);
-            genererFichierFormatTexte(pays, nomFichier, doitAffLan, doitAffCap,
-                    doitAffFro);      
-        } 
+        traiterFormatTexte(pays, nomFichier, doitAffLan, doitAffCap, 
+                doitAffFro); 
     }
     else if(strcmp(formatSortie, "dot\0") == 0) {
-        if (strcmp(nomFichier, "\0") == 0) {
-            afficherFormatDot(pays, doitAffLan, doitAffCap, doitAffFro, 
-                    doitAffDra);
-        }
+         traiterFormatDot(pays, nomFichier, doitAffLan, doitAffCap, 
+                 doitAffFro, doitAffDra);
     }
     return 0;
 }

@@ -75,13 +75,11 @@ des objets graphiques sous format .dot ou .pgn
   - [x] int chercherArgument(const \*\*p, const \*chaine, int argc)
   - [x] Pays * recupererDonneesPays(const char \*cle, bool doitAffPays, 
             bool doitAffReg)
-  - [x] void afficherFormatTexte(Pays \* pays, bool doitAffLan, bool doitAffCap,
-            bool doitAffFro)
-  - [x] void genererFichierFormatTexte(Pays \* pays, const char \*nomFichier,
+  - [x] void traiterFormatTexte(Pays \* pays, const char *nomFicher, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro)
-  - [x] void afficherFormatDot(Pays \* pays, bool doitAffLan, bool doitAffCap,
-            bool doitAffFro, bool doitAffDra)
-  - [ ] Fonction #7
+  - [x] void traiterFormatDot(Pays \* pays, const char *nomFichier, 
+            bool doitAffLan, bool doitAffCap, bool doitAffFro, bool doitAffDra)
+  - [ ] Fonction #6
 
 - [ ] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
 
