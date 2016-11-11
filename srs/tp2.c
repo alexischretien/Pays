@@ -6,10 +6,7 @@
  * @Version     10 novembre 2016
  */
 
-#include "countries.c"
-#include<stdio.h>
-#include<stdlib.h>
-#include<jansson.h>
+#include "countries.h"
 
 /**
  * Main

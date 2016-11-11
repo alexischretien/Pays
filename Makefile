@@ -1,17 +1,17 @@
 CC = gcc
-CFLAGS = -Wall
-LFLAGS =
+CFLAGS = -Wall `pkg-config --cflags jansson`
+LFLAGS = `pkg-config --libs jansson`
 OBJECTS = $(patsubst %.c,%.o,$(wildcard srs/*.c))
 IMAGES = $(patsubs .png,.dot)
-EXEC = tp2
+EXEC = bin/tp2
 
 $(EXEC): $(OBJECTS)
-	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS) -ljansson
+	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< -ljansson 
+	$(CC) $(CFLAGS) -o $@ -c $<
 
-.PHONY: clean
+.PHONY: clean data
 
 clean:
 	rm -f $(OBJECTS) $(EXEC) $(IMAGES)
@@ -19,3 +19,5 @@ clean:
 data:
 	git submodule init
 	git submodule update
+	cd data/countries; git checkout master 
+	cd data/countries; git pull

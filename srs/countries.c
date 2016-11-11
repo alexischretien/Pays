@@ -6,12 +6,8 @@
  * @Auteur      Chretien Alexis (CHRA25049209)
  * @Version     10 novembre 2016
  */
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
-#include<jansson.h>
+
 #include "countries.h"
-#define FORMATPARDEFAUT "text\0"
 
 void afficherAide(){
     printf("Usage: bin/tp2 [--help] [--output-format FORMAT] [--output-filename FILENAME]\n");
@@ -54,7 +50,7 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
 
     FILE *f = fopen("../data/countries/countries.json", "r");
     char *donnees;
-    char *bufferLan[NBPAYS], *bufferFro[NBPAYS];
+    char *bufferLan[NBPAYS];
     int i; 
     int j;
     int k;
@@ -62,7 +58,7 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     json_error_t erreur;
     json_t *racine, *element;
     json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
-           *objCapitale, *objLangues, *objFrontieres, *tabFrontieres;   
+           *objCapitale, *objLangues, *tabFrontieres;   
     const char *nomCommun[NBPAYS], *code[NBPAYS], *region[NBPAYS], 
            *capitale[NBPAYS], *langues[NBPAYS];
     void *iter;
@@ -192,7 +188,6 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
     int i = 0;
     int j, k;
     char codeMin[NBPAYS][4];
-    char nomFichierDot;
     FILE *f = stdout;
 
     if (strcmp(nomFichier, "\0") != 0) {
@@ -289,7 +284,7 @@ bool validerNomFichier(const char *nomFichier, const char *format) {
         return false;
      }
     if(strcmp(strtok(NULL, "."), formatSortie) != 0) {
-        printf("Erreur: L'extension du fichier devrait etre \".%s\"\n");
+        printf("Erreur: L'extension du fichier devrait etre \".%s\"\n", formatSortie);
         return false;
     }
     if(strtok(NULL, ".")  != NULL) {

@@ -9,9 +9,10 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
+#include<ctype.h>
 #include<jansson.h>
 #define NBPAYS 249
-
+#define FORMATPARDEFAUT "text\0"
 //
 // Structure
 //
