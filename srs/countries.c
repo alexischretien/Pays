@@ -265,10 +265,45 @@ void traiterFormatPng(const char  *nomFichier, const char *nomFichierDot) {
     strcat(commande, nomFichier);
     strcat(commande, " ");
     strcat(commande, nomFichierDot);
-    //printf("teeeeeeeeeeeest\n");
-    //printf("%s\n", commande);
     system(commande);
-    //printf("teeeeeeeeest22222222\n");
     remove(nomFichierDot); 
 }
 
+bool validerNomFichier(const char *nomFichier, const char *format) {
+
+    int i;
+    char *formatSortie = "txt\0";
+    char *chaine;
+
+    if(strcmp(format, "text\0") != 0) {
+        formatSortie = malloc(strlen(format) + 1);
+        formatSortie = (char *)format;
+        formatSortie[0] = '\0';
+    }   
+    chaine = malloc(strlen(nomFichier) + 1 );
+    chaine[0] = '\0';
+    strcpy(chaine, nomFichier);
+    
+    if(strcmp(strtok(chaine, "."), nomFichier) == 0) {
+        printf("Erreur: Extension \".%s\" du fichier manquant.\n", formatSortie);
+        return false;
+     }
+    if(strcmp(strtok(NULL, "."), formatSortie) != 0) {
+        printf("Erreur: L'extension du fichier devrait etre \".%s\"\n");
+        return false;
+    }
+    if(strtok(NULL, ".")  != NULL) {
+        printf("Erreur: Le nom du fichier ne doit contenir qu'un seul point.\n");
+        return false;
+    }
+
+    for(i = 0 ; chaine[i] != '\0' ;  i++) {
+        if(chaine[i] < 48 || chaine[i] > 122 ||
+                (chaine[i] > 57 && chaine[i] < 65)) {
+            printf("Erreur: Le caractere '%c' est illegal pout le nom du fichier\n", chaine[i]);
+            return false;
+        }
+    }
+    return true;
+
+}

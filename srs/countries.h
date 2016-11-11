@@ -119,3 +119,14 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
  * @return
  */
 void traiterFormatPng(const char *nomFichier, const char *nomFichierDot);
+
+/**
+ * Fonction qui verifie si le nom du fichier donnee est valide en fonction
+ * du format demande. 
+ *
+ * @param *nomFichier   Le nom du fichier.
+ * @param *format       Le format du fichier.
+ * @return              'True' si le nom du fichier est valide. 'false'
+ *                      sinon.
+ */
+bool validerNomFichier(const char *nomFichier, const char *format);

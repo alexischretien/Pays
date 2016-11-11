@@ -32,74 +32,81 @@ int main(int argc, char *argv[]) {
                                // d'une region donnee 
     Pays *pays;
     
-    if(chercherArgument((const char **)argv,"--help\0",argc) != 0) {
+    if(chercherArgument((const char **)argv,"--help",argc) != 0) {
         printf("%d\n",position);
         afficherAide();
         return 0;
     }
-    position = chercherArgument((const char**)argv,"--output-format\0", argc);  
+    position = chercherArgument((const char**)argv,"--output-format", argc);  
     if(position != 0) {
         formatSortie = argv[position + 1];
+        if(strcmp(formatSortie, "text") != 0 &&
+                strcmp(formatSortie, "dot") != 0 &&
+                strcmp(formatSortie, "png") != 0) {
+            printf("Erreur: format de sortie \"%s\" invalide.", formatSortie);
+            return 0;
+        }
     }
-    position = chercherArgument((const char**)argv,"--output-filename\0",argc);
+    position = chercherArgument((const char**)argv,"--output-filename",argc);
     if(position != 0) {
         nomFichier = argv[position + 1];
     }
     else {
+        if(strcmp(formatSortie, "png") == 0) {
+            printf("Erreur: Le format \"png\" requiere un nom de fichier.");
+            return 0;
+        }
         nomFichier = "\0";
     }  
-    if(chercherArgument((const char **)argv,"--show-languages\0",argc) != 0) {
+    if(chercherArgument((const char **)argv,"--show-languages",argc) != 0) {
         doitAffLan = true;
     }
-    if(chercherArgument((const char **)argv,"--show-capital\0",argc) != 0) {
+    if(chercherArgument((const char **)argv,"--show-capital",argc) != 0) {
         doitAffCap = true;
     }
-    if(chercherArgument((const char **)argv,"--show-borders\0",argc) != 0) {
+    if(chercherArgument((const char **)argv,"--show-borders",argc) != 0) {
         doitAffFro = true;
     }
-    if(chercherArgument((const char **)argv,"--show-flag\0",argc) != 0) {
+    if(chercherArgument((const char **)argv,"--show-flag",argc) != 0) {
         doitAffDra = true;
     }
-    position = chercherArgument((const char **)argv,"--country\0",argc);
+    position = chercherArgument((const char **)argv,"--country",argc);
     if(position != 0) {
         cle = argv[position + 1];
         doitAffPays = true;
     }
     else {
-        position = chercherArgument((const char **)argv, "--region\0",argc);
+        position = chercherArgument((const char **)argv, "--region",argc);
         if(position != 0) {
             cle = argv[position + 1]; 
             doitAffReg = true;        
         }   
     }
-  
+    if(strcmp(nomFichier, "\0") != 0) {
+       if(!validerNomFichier(nomFichier, formatSortie)) {
+            return 0;
+       }
+    }   
     pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
 
-    if (strcmp(formatSortie, "text\0") == 0) {
+    if (strcmp(formatSortie, "text") == 0) {
         traiterFormatTexte(pays, nomFichier, doitAffLan, doitAffCap, 
                 doitAffFro); 
     }
-    else if(strcmp(formatSortie, "dot\0") == 0) {
+    else if(strcmp(formatSortie, "dot") == 0) {
 
        traiterFormatDot(pays, nomFichier, doitAffLan, doitAffCap,
               doitAffFro, doitAffDra);
     }
-    else if (strcmp(formatSortie, "png\0") == 0 ) {
+    else if (strcmp(formatSortie, "png") == 0 ) {
         
-        if(strcmp(nomFichier, "\0") == 0) {
-            printf("Erreur: Le format de sortie 'png' requiere un nom de fichier");
-            return 0;
-        }
-        else {
-            nomFichierDot = malloc(strlen(nomFichier) + 4);
-            //strcpy(nomFichierDot, strtok(nomFicher, ".");
-            strcat(nomFichierDot, nomFichier);
-            strcat(nomFichierDot, ".dot\0");
+        nomFichierDot = malloc(strlen(nomFichier) + 4);
+        strcat(nomFichierDot, nomFichier);
+        strcat(nomFichierDot, ".dot\0");
 
-            traiterFormatDot(pays, nomFichierDot, doitAffLan, doitAffCap, 
+        traiterFormatDot(pays, nomFichierDot, doitAffLan, doitAffCap, 
                     doitAffFro, doitAffDra);
-            traiterFormatPng(nomFichier, nomFichierDot);
-        }
+        traiterFormatPng(nomFichier, nomFichierDot);        
     }
     return 0;
 }

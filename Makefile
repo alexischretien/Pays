@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall
 LFLAGS =
-OBJECTS = $(patsubst .c,%.o,$(wildcard srs/*.c))
+OBJECTS = $(patsubst %.c,%.o,$(wildcard srs/*.c))
 IMAGES = $(patsubs .png,.dot)
 EXEC = tp2
 

@@ -80,6 +80,7 @@ des objets graphiques sous format .dot ou .pgn
   - [x] void traiterFormatDot(Pays \* pays, const char \*nomFichier, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro, bool doitAffDra)
   - [x] void traiterFormatPng(const char \*nomFichier, const char \*nomFichierDot);
+  - [x] void validerNomFichier(const char \*nomFichier, const char \*format);
 
 - [x] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
 
