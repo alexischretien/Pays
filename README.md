@@ -66,22 +66,22 @@ des objets graphiques sous format .dot ou .pgn
 
 ## Statut
 
-- [ ] Definir les fonctions du fichier *countries.h* 
+- [x] Definir les fonctions du fichier *countries.h* 
 
-- [ ] Implémentation des fonctions du fichier *countries.h* dans le fichier 
+- [x] Implémentation des fonctions du fichier *countries.h* dans le fichier 
   *countries.c*
 
   - [x] void afficherAide()
   - [x] int chercherArgument(const \*\*p, const \*chaine, int argc)
   - [x] Pays * recupererDonneesPays(const char \*cle, bool doitAffPays, 
             bool doitAffReg)
-  - [x] void traiterFormatTexte(Pays \* pays, const char *nomFicher, 
+  - [x] void traiterFormatTexte(Pays \* pays, const char \*nomFicher, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro)
-  - [x] void traiterFormatDot(Pays \* pays, const char *nomFichier, 
+  - [x] void traiterFormatDot(Pays \* pays, const char \*nomFichier, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro, bool doitAffDra)
-  - [ ] Fonction #6
+  - [x] void traiterFormatPng(const char \*nomFichier, const char \*nomFichierDot);
 
-- [ ] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
+- [x] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
 
 - [ ] Créer des suites de tests et tester le projet
 

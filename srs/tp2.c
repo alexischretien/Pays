@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
     char *cle;
     char *formatSortie = FORMATPARDEFAUT;
     char *nomFichier;
+    char *nomFichierDot;
     bool doitAffLan = false;   // Determine si on doit afficher les langues
                                // officiels
     bool doitAffCap = false;   // Determine si on doit afficher la capitale
@@ -79,8 +80,26 @@ int main(int argc, char *argv[]) {
                 doitAffFro); 
     }
     else if(strcmp(formatSortie, "dot\0") == 0) {
-         traiterFormatDot(pays, nomFichier, doitAffLan, doitAffCap, 
-                 doitAffFro, doitAffDra);
+
+       traiterFormatDot(pays, nomFichier, doitAffLan, doitAffCap,
+              doitAffFro, doitAffDra);
+    }
+    else if (strcmp(formatSortie, "png\0") == 0 ) {
+        
+        if(strcmp(nomFichier, "\0") == 0) {
+            printf("Erreur: Le format de sortie 'png' requiere un nom de fichier");
+            return 0;
+        }
+        else {
+            nomFichierDot = malloc(strlen(nomFichier) + 4);
+            //strcpy(nomFichierDot, strtok(nomFicher, ".");
+            strcat(nomFichierDot, nomFichier);
+            strcat(nomFichierDot, ".dot\0");
+
+            traiterFormatDot(pays, nomFichierDot, doitAffLan, doitAffCap, 
+                    doitAffFro, doitAffDra);
+            traiterFormatPng(nomFichier, nomFichierDot);
+        }
     }
     return 0;
 }

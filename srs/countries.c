@@ -192,6 +192,7 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
     int i = 0;
     int j, k;
     char codeMin[NBPAYS][4];
+    char nomFichierDot;
     FILE *f = stdout;
 
     if (strcmp(nomFichier, "\0") != 0) {
@@ -254,3 +255,20 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
         fclose(f);
     }
 }
+
+void traiterFormatPng(const char  *nomFichier, const char *nomFichierDot) {
+    char *commande;
+
+    commande = malloc(35*sizeof(char) + strlen(nomFichier) + strlen(nomFichierDot));
+    commande[0] = '\0';
+    strcat(commande, "neato -Goverlap=false -Tpng -o ");
+    strcat(commande, nomFichier);
+    strcat(commande, " ");
+    strcat(commande, nomFichierDot);
+    //printf("teeeeeeeeeeeest\n");
+    //printf("%s\n", commande);
+    system(commande);
+    //printf("teeeeeeeeest22222222\n");
+    remove(nomFichierDot); 
+}
+

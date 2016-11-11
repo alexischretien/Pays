@@ -107,5 +107,15 @@ void traiterFormatTexte(Pays *pays, const char *nomFichier, bool doitAffLan,
  * @param doitAffDra    Determine si la fonction doit afficher le drapeau
  * @return
  */
-void traiterFormatDot(Pays *pays, const char * nomFichier, bool doitAffLan, 
+void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan, 
         bool doitAffCap, bool doitAffFro, bool doitAffDra);
+
+/**
+ * Fonction qui genere un fichier '.png' a partir d'un fichier '.dot' et 
+ * qui supprime ce fichier '.dot'.
+ *
+ * @param *nomFichier     Le nom du fichier '.png' a generer.
+ * @param *nomFichierDot  Le nom du fichier '.dot'.
+ * @return
+ */
+void traiterFormatPng(const char *nomFichier, const char *nomFichierDot);
