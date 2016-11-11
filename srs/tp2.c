@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         if(strcmp(formatSortie, "text") != 0 &&
                 strcmp(formatSortie, "dot") != 0 &&
                 strcmp(formatSortie, "png") != 0) {
-            printf("Erreur: format de sortie \"%s\" invalide.", formatSortie);
+              printf("Erreur. Format de sortie \"%s\" invalide.\n", formatSortie);
             return 0;
         }
     }
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         if(strcmp(formatSortie, "png") == 0) {
-            printf("Erreur: Le format \"png\" requiere un nom de fichier.");
+            printf("Erreur. Le format \"png\" requiere un nom de fichier.\n");
             return 0;
         }
         nomFichier = "\0";
