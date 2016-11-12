@@ -3,7 +3,7 @@
  * tp2.c - Fichier source C de l'executable
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     10 novembre 2016
+ * @Version     11 novembre 2016
  */
 
 #include "countries.h"
@@ -83,8 +83,10 @@ int main(int argc, char *argv[]) {
        if(!validerNomFichier(nomFichier, formatSortie)) {
             return 0;
        }
-    }   
+    }
+
     pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
+    trierLangues(pays);
 
     if (strcmp(formatSortie, "text") == 0) {
         traiterFormatTexte(pays, nomFichier, doitAffLan, doitAffCap, 

@@ -4,7 +4,7 @@
  * des differentes fonctions du fichier 'countries.c'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     6 novembre 2016 
+ * @Version     11 novembre 2016 
  */
 #include<stdio.h>
 #include<stdbool.h>
@@ -21,7 +21,7 @@ typedef struct {
     const char *code;
     const char *capitale;
     const char *region;
-    const char *langues;
+    const char *langues[NBPAYS];
     const char *frontieres[NBPAYS];
 } Pays;
 
@@ -131,3 +131,15 @@ void traiterFormatPng(const char *nomFichier, const char *nomFichierDot);
  *                      sinon.
  */
 bool validerNomFichier(const char *nomFichier, const char *format);
+
+/**
+ * Fonction qui trie les langues de chaque pays selon l'ordre alphabetique
+ * (Comme les fonctions de la librairie Jansson "json_object_foreach" et
+ * "json_object_iter" semblent retourner les objets dans un ordre aleatoire
+ * pour chaque execution (meme si leurs documentations pretendent le contraire), 
+ * cette fonction est necessaire pour assurer la validite des series de tests).
+ *
+ * @param *pays     L'ensemble des pays a traiter
+ * @return
+ */
+void trierLangues(Pays *pays);

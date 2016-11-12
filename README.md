@@ -81,13 +81,15 @@ des objets graphiques sous format .dot ou .pgn
             bool doitAffLan, bool doitAffCap, bool doitAffFro, bool doitAffDra)
   - [x] void traiterFormatPng(const char \*nomFichier, const char \*nomFichierDot);
   - [x] void validerNomFichier(const char \*nomFichier, const char \*format);
+  - [x] void trierLangues(Pays \*pays);
 
 - [x] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
 
 - [ ] Créer des suites de tests et tester le projet
-
+    
+  - [x] Creation d'une suite de tests sur les commandes entrées par l'utilisateur
   - [ ] Creation d'une suite de tests pour le format texte
-  - [ ] Creation d'une suite de tests pour le format Graphviz
+  - [ ] Creation d'une suite de tests pour le format Dot
   - [ ] Création d'une suite de tests pour le format PNG
   - [ ] Validation des tests et corrections éventuelles appliquées au projet
 

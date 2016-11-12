@@ -4,7 +4,7 @@
  * des fonctions declarees dans le fichier 'countries.h'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     10 novembre 2016
+ * @Version     11 novembre 2016
  */
 
 #include "countries.h"
@@ -50,7 +50,6 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
 
     FILE *f = fopen("../data/countries/countries.json", "r");
     char *donnees;
-    char *bufferLan[NBPAYS];
     int i; 
     int j;
     int k;
@@ -60,8 +59,7 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
            *objCapitale, *objLangues, *tabFrontieres;   
     const char *nomCommun[NBPAYS], *code[NBPAYS], *region[NBPAYS], 
-           *capitale[NBPAYS], *langues[NBPAYS];
-    void *iter;
+           *capitale[NBPAYS];
 
     Pays pays[NBPAYS];
     Pays *paysRetour;
@@ -104,26 +102,19 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
             capitale[i] = json_string_value(objCapitale);     
             pays[j].capitale = capitale[i];
 
-            objLangues = json_object_get(objPays, "languages");
-            iter = json_object_iter(objLangues);
-            element = json_object_iter_value(iter);
-            langues[i] = json_string_value(element);
-            bufferLan[i] = calloc(sizeof(char), 150);
-            bufferLan[i] = (char *)langues[i];
-            iter = json_object_iter_next(objLangues, iter);
-
-            while(iter != NULL) {
-                element = json_object_iter_value(iter);
-                langues[i] = json_string_value(element);
-                iter = json_object_iter_next(objLangues, iter);
-                strncat(bufferLan[i], ", ", 3);
-                strncat(bufferLan[i], langues[i], strlen(langues[i]) + 1);
+            objLangues = json_object_get(objPays, "languages"); 
+            k = 0;
+            json_object_foreach(objLangues, index, element) {
+                pays[j].langues[k] = json_string_value(element);
+                if(k > 0 && strcmp(pays[j].langues[k], pays[j].langues[k-1]) < 0) {
+                    pays[j].langues[k] = pays[j].langues[k-1];
+                    pays[j].langues[k-1] = json_string_value(element);
+                }
+                ++k;
             }
-            strncat(bufferLan[i], "\0", 1);
-            pays[j].langues = bufferLan[i];
+            pays[j].langues[k] = "\0";
 
             tabFrontieres = json_object_get(objPays, "borders");
-
             k = 0;
             json_array_foreach(tabFrontieres, index, element) {
                pays[j].frontieres[k] = json_string_value(element);
@@ -138,7 +129,7 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     pays[j].code = "\0";
     pays[j].region = "\0";
     pays[j].capitale = "\0";
-    pays[j].langues = "\0";
+    pays[j].langues[0] = "\0";
     pays[j].frontieres[0] = "\0";
 
     paysRetour = pays;
@@ -162,7 +153,16 @@ void traiterFormatTexte(Pays *pays, const char *nomFichier, bool doitAffLan,
             fprintf(f, "Capital: %s\n", pays[i].capitale);
         }
         if (doitAffLan == true) {
-            fprintf(f, "Languages: %s\n", pays[i].langues);
+            
+            fprintf(f, "Languages: %s", pays[i].langues[0]);
+            if (strcmp(pays[i].langues[0], "\0") != 0) {
+                j = 1;
+                while(strcmp(pays[i].langues[j], "\0") != 0) {
+                    fprintf(f, ", %s", pays[i].langues[j]);
+                    ++j;
+                }
+            }
+            fputs("\n", f);
         }
         
         if (doitAffFro == true) {
@@ -214,7 +214,15 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
             fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>\n", pays[i].capitale);
         }
         if (doitAffLan == true) {
-            fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Languages</b>: %s</td></tr>\n", pays[i].langues);
+            fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Languages</b>: %s", pays[i].langues[0]);
+            if(strcmp(pays[i].langues[0], "\0") != 0) {
+                k = 1;
+                while(strcmp(pays[i].langues[k], "\0") != 0) {
+                    fprintf(f, ", %s", pays[i].langues[k]);
+                    ++k;
+                }
+            }
+            fputs("</td></tr>\n", f);
         }
         if (doitAffFro == true) {
             fprintf(f, "            <tr><td align=\"left\" border=\"1\"><b>Borders</b>:");
@@ -301,3 +309,34 @@ bool validerNomFichier(const char *nomFichier, const char *format) {
     return true;
 
 }
+
+void trierLangues(Pays *pays) {
+    int i, j, k, l;
+    const char * chaine;
+
+     i = 0;
+    while(strcmp(pays[i].code, "\0") != 0) {
+        j = 0;
+        while(strcmp(pays[i].langues[j], "\0") != 0) {
+            k = 0;
+            while(strcmp(pays[i].langues[k], "\0") != 0) {
+                if(k > 0 && strcmp(pays[i].langues[k-1], pays[i].langues[k]) > 0) {
+                    chaine = malloc(strlen(pays[i].langues[k] + 1));
+                    chaine = pays[i].langues[k];
+                    pays[i].langues[k] = malloc(strlen(pays[i].langues[k-1] + 1));
+                    pays[i].langues[k] = pays[i].langues[k-1];
+                    pays[i].langues[k-1] = malloc(strlen(chaine) + 1);
+                    pays[i].langues[k-1] = chaine;
+                    for(l = 0 ; strcmp(pays[i].langues[l], "\0") != 0 ; ++l) {
+                    }
+                                
+                }
+                ++k;
+            }
+            ++j;
+        }
+        ++i;
+    }
+}
+
+
