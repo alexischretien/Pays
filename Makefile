@@ -11,7 +11,7 @@ $(EXEC): $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-.PHONY: clean data
+.PHONY: clean data test
 
 clean:
 	rm -f $(OBJECTS) $(EXEC) $(IMAGES)
@@ -21,3 +21,6 @@ data:
 	git submodule update
 	cd data/countries; git checkout master 
 	cd data/countries; git pull
+
+test: 
+	bats test/suite1.bats test/suite2.bats test/suite3.bats

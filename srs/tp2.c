@@ -84,8 +84,13 @@ int main(int argc, char *argv[]) {
             return 0;
        }
     }
-
+    
     pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
+
+    if(strcmp(pays[0].code, "\0") == 0) {
+        printf("Erreur. La recherche ne retourne aucun pays.\n");
+        return 0;
+    }
     trierLangues(pays);
 
     if (strcmp(formatSortie, "text") == 0) {

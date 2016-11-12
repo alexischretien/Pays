@@ -16,7 +16,7 @@ void afficherAide(){
     printf("Displays information about countries.\n\n");
     printf("Optional arguments:\n");
     printf("  --help                     Show this help message and exit.\n");
-    printf("  --output-format FORMAT     Selects the output format (either \"test\", \"dot\" or \"png\").\n");
+    printf("  --output-format FORMAT     Selects the output format (either \"text\", \"dot\" or \"png\").\n");
     printf("                             The \"dot\" format is the one recognized by Graphviz.\n");
     printf("                             The default format is \"text\".\n");
     printf("  --output-filename FILENAME The name of the output filename. This argument is\n");

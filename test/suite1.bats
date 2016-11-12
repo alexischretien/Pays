@@ -102,4 +102,14 @@
 @test "Le nom du fichier contient un caractere plus grand que ASCII 122 - cas general" {
     run ../bin/tp2 --output-filename fic~hier.txt
     [ "$output" = "Erreur. Le caractere '~' est illegal pour le nom du fichier." ]
-} 
+}
+
+@test "Le pays demande n'existe pas"  {
+    run ../bin/tp2 --country codeBidon
+    [ "$output" = "Erreur. La recherche ne retourne aucun pays." ]
+}
+
+@test "La region demande n'existe pas" {
+    run ../bin/tp2 --region regionBidon
+    [ "$output" = "Erreur. La recherche ne retourne aucun pays." ]
+}
