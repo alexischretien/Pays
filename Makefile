@@ -2,7 +2,8 @@ CC = gcc
 CFLAGS = -Wall `pkg-config --cflags jansson`
 LFLAGS = `pkg-config --libs jansson`
 OBJECTS = $(patsubst %.c,%.o,$(wildcard srs/*.c))
-IMAGES = $(patsubs .png,.dot)
+FICHIERS = $(wildcard bin/*.txt) $(wildcard bin/*.dot) $(wildcard bin/*.png)
+
 EXEC = bin/tp2
 
 $(EXEC): $(OBJECTS)
@@ -14,7 +15,7 @@ $(EXEC): $(OBJECTS)
 .PHONY: clean data test
 
 clean:
-	rm -f $(OBJECTS) $(EXEC) $(IMAGES)
+	rm -f $(OBJECTS) $(EXEC) $(FICHIERS)
 
 data:
 	git submodule init

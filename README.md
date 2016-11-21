@@ -9,7 +9,7 @@ tests.
 Le projet consiste en un programme qui affiche differentes informations sur un 
 ou plusieurs pays en fonction des arguments qui ont été entrés par l'utilisateur
 lors de l'exécution du programme. Ces arguments incluent une option pour générer
-des objets graphiques sous format *.dot* ou *.pgn*. 
+des objets graphiques sous format `.dot` ou `.pgn`. 
 
 ## Auteurs
 
@@ -21,58 +21,55 @@ des objets graphiques sous format *.dot* ou *.pgn*.
 
 ## Dépendances
 
-* [Graphviz](http://graphviz.org/Download.php) : Logiciel de visualization      
-  graphique.
-* Le projet [countries](https://github.com/ablondin/countries) : Projet duquel
-  on extrait les informations des différents pays. Le projet 
-  *inf3135-aut2016-tp2* 
-  contient le projet *countries* sous forme de sous-module. Pour mettre à jour 
-  les données du sous-module *countries*, entrez la commande `make data` dans 
-  le répertoire racine du projet *inf3135-aut2016-tp2*.
+* [Graphviz](http://graphviz.org/Download.php) : Logiciel de visualization graphique.
+* Le projet [countries](https://github.com/ablondin/countries) : Projet duquel on 
+  extrait les informations des différents pays, inclus sous forme de sous-module.
 * La bibliothèque [jansson](http://digip.org/jansson/) : Bibliothèque C pour 
   encoder, décoder et manipuler des informations sous forme JSON.
+* Le système de tests automatisés [Bats](https://github.com/sstephenson/bats) : Outil
+  permettant le lancement des séries tests contenues dans le répertoire `test/`.
 
 ## Installation
 
 * Installez le logiciel *Graphviz* et la bibliothèque *Jansson* (si vous ne les
   avez pas déjà). 
 * À la racine du projet, entrez la commande `make data` pour mettre à jour 
-  le sous-modules *countries/* qui contient les informations sur les pays. 
+  le sous-modules `countries/` contenant les informations sur les pays. 
 * À la racine du projet, entrez la commande `make` pour compiler le projet
-  et générer l'exécutable dans le répertoire *bin*.
-* À la racine du projet, entrez la commande `make clean` pour nettoyer et 
-  supprimer les fichiers *.o*. 
+  et générer l'exécutable dans le répertoire `bin/`.
+* À la racine du projet, entrez la commande `make clean` pour  supprimer les fichiers 
+  de format `.o`, `.txt`, `.dot`, `.png` ainsi que l'exécutable `bin/tp2`. 
 * À la racine du projet, entrez la commande `make test` pour exécuter les trois
-  suites de tests contenues dans le répertoire *test/*.
+  suites de tests contenues dans le répertoire `test/`.
 * Pour lancer l'exécutable, entrez la commande `./tp2 [ARGUMENTS]` dans le 
-  répertoire *bin/*.
-* Entrez `./tp2 --help` dans le répertoire *bin/* pour plus d'information sur
+  répertoire `bin/`.
+* Entrez `./tp2 --help` dans le répertoire `bin/` pour plus d'informations sur
   le fonctionnement du programme. 
 
 ## Fonctionnement
 
 * L'argument `--output-format FORMAT` permet de spécifier le format de sortie.
-  Les valeurs de *FORMAT* permises sont *text*, *dot* et *png*. Le format par 
-  défaut est le format *text*. 
+  Les valeurs de `FORMAT` permises sont `text`, `dot` et `png`. Le format par 
+  défaut est le format `text`. 
 * L'argument `--output-filename FILENAME` permet de spécifier le nom du fichier.
-  Cet argument est obligatoire pour le format de sortie *png*. Si cet argument
-  argument est omis pour le format *text* ou *dot*, les informations générées 
-  seront affichées à la sortie standard. Le nom du fichier ne doit contenir 
+  Cet argument est obligatoire pour le format de sortie `png`. Si cet argument
+  est omis pour le format `text` ou `dot`, les informations générées seront 
+  affichées à la sortie standard. Le nom du fichier ne doit contenir 
   qu'un seul point (pour spécifier l'extension) et ne doit être constitué que 
-  de caractères alphanumériques. L'extension du fichier (*.txt*, *dot*, *.png*)
+  de caractères alphanumériques. L'extension du fichier (`.txt`, `.dot`, `.png`)
   doit être inclus et respecter le format de sortie. 
 * L'argument `--show-languages` permet d'afficher les langues officielles des
   pays.
 * L'argument `--show-capital` permet d'afficher la capitale des pays. 
 * L'argument `--show-borders` permet d'afficher les codes des pays frontaliers. 
 * L'argument `--show-flag` permet d'afficher le drapeau (n'a un effet que pour
-  les formats *dot* et *png*).
+  les formats `dot` et `png`).
 * L'argument `--country COUNTRY` permet d'afficher les informations sur un pays
-  en particulier. *COUNTRY* doit être le code à trois lettres du pays désiré. 
+  en particulier. `COUNTRY` doit être le code à trois lettres du pays désiré. 
   Les lettres du code peuvent être en majuscules ou minuscules.
 * L'argument `--region REGION` permet d'afficher les informations sur les pays
-  d'une région. Les régions supportées sont *africa*, *americas*, *asia*, 
-  *europe* et *oceania*. La case de l'argument *REGION* n'est pas considérée. 
+  d'une région. Les régions supportées sont `africa`, `americas`, `asia`, 
+  `europe` et `oceania`. La case de l'argument `REGION` n'est pas considérée. 
 * Si les arguments `--country COUNTRY` et `--region REGION` sont tous les deux
   spécifiés, seul l'argument `--country COUNTRY` sera considéré.
 * Si aucun des arguments `--country COUNTRY` et `--region REGION` n'est 
@@ -81,9 +78,10 @@ des objets graphiques sous format *.dot* ou *.pgn*.
 #### Exemple d'exécution #1
 
 NB: Toutes les exécutions se font à l'intérieur du répertoire de l'exécutable 
-*tp2* (*bin/*).
+`tp2` (`bin/`).
+
 Pour afficher à la sortie standard toutes les informations sur le Canada en
-format *text* :
+format `text` :
 
 ```
 ./tp2 --country can --show-languages --show-capital --show-borders
@@ -100,13 +98,14 @@ Borders: USA
 
 #### Exemple d'exécution #2
 
-Pour créer un fichier *dot* contenant toutes les informations sur tous les pays :
+Pour créer un fichier `dot` contenant toutes les informations sur tous les pays :
 
 ```
 ./tp2 --output-format dot --output-filename monde.dot --show-languages --show-capital --show-borders --show-flag
 ```
-Ce qui génère un fichier nommé *monde.dot* dans le répertoire *bin/*, qui 
-commence et se termine ainsi : 
+Ce qui génère un fichier nommé `monde.dot` dans le répertoire `bin/`, qui 
+commence et se termine ainsi (les trois points verticaux représentent des lignes
+ignorées à fin de présenter un exemple plus court) : 
 ```
 graph {
     abw [
@@ -146,76 +145,71 @@ tza -- zmb;
 zaf -- zwe;
 zmb -- zwe;
 }
-
 ```
 #### Exemple d'exécution #3
 
-Pour générer une image *png* contenant toutes les informations sur tous les pays d'Amérique : 
+Pour générer une image `png` contenant toutes les informations sur tous les pays d'Amérique : 
 
 ```
-./tp2 --region americas --output-format png output-filename americas.png --show-languages --show-capital --show-borders --show-flag 
+./tp2 --region americas --output-format png --output-filename americas.png --show-languages --show-capital --show-borders --show-flag 
 ```
-Ce qui génère automatiquement [cette image](http://i.imgur.com/mbZeMSM.png) sous le nom d'*americas.png* 
-dans le répertoire *bin/*.
+Ce qui génère automatiquement [cette image](http://i.imgur.com/mbZeMSM.png) sous le nom d'`americas.png` 
+dans le répertoire `bin/`.
 
 ## Contenu du projet
 
-* **Makefile** : Ficher Makefile inculant un service de compilation des fichiers
-  sources et de génération du fichier exécutable *tp2* (`make`), un service de
-  nettoyage des fichiers du projet (`make clean`) et un service de mise à jour 
-  des fichiers du sous-module *countries* (`make data`).
-* **README.md** : Fichier markdown servant à la documentation et au formatage 
-  de la page GitLab du projet.
-* **bin/tp2** : Le fichier exécutable du projet
-* **data/countries/** : Répertoire du sous-module *countries*, projet contenant
-  les informations des différents pays.
-* **srs/countries.c** : Fichier C contenant l'implémentation du fichier 
-  *countries.h*
-* **srs/countries.h** : Fichier header contenant les déclarations des fonctions
-  du ficher *countries.c*. 
-* **srs/tp2.c** : Fichier C source du projet produisant l'exécutable.
-* **test/suite1.bats** : Série de tests sur les commandes invalides entrées par
-  l'utilisateur.
-* **test/suite2.bats** : Série de tests sur l'affichage du format *texte*.
-* **test/suite3.bats** : Série de tests sur l'affichage du format *dot*.
-* **.gitmodules** : Ficher servant à définir la liaison du module *countries* à
- son dépot-mère.
-* **.gitlab-ci.yml** : Fichier *YAML* permettant de tester automatiquement les 
-  suites de tests lors des *pushes* sur le dépot. 
+* `Makefile` : Ficher Makefile inculant différents services pour gérer,
+   entretenir et tester le projet. 
+* `README.md` : Fichier markdown servant à la documentation et au formatage 
+   de la page GitLab du projet.
+* `bin/tp2` : Le fichier exécutable du projet.
+* `data/countries/` : Répertoire du sous-module `countries`, projet contenant
+   les informations des différents pays.
+* `srs/countries.c` : Fichier C contenant l'implémentation du fichier
+  `countries.h`
+* `srs/countries.h` : Fichier *header* contenant les déclarations des fonctions
+   du ficher `countries.c` ainsi que leurs documentations. 
+* `srs/tp2.c` : Fichier C source du projet produisant l'exécutable.
+* `test/suite1.bats` : Série de tests sur les commandes invalides entrées par
+   l'utilisateur.
+* `test/suite2.bats` : Série de tests sur l'affichage du format `text`.
+* `test/suite3.bats` : Série de tests sur l'affichage du format `dot`.
+* `.gitmodules` : Ficher servant à définir la liaison du sous-module `countries` à
+   son dépot-mère.
+* `.gitlab-ci.yml` : Fichier `YAML` permettant de tester automatiquement les 
+   suites de tests lors des *pushes* sur le dépot. 
+* `.gitignore` : Fichier spécifiant au logiciel Git quels fichiers ignorer. 
 
 ## Références
 
-** *Blondin Massé, Alexandre*, [Diapositives des cours](www.lacim.uqam.ca/~blondin/fr/inf3135).
+* *Blondin Massé, Alexandre*, [Diapositives des cours](http://www.lacim.uqam.ca/~blondin/fr/inf3135).
 
 ## Statut
 
-- [x] Definir les fonctions du fichier *countries.h* 
+- [x] Definir les fonctions du fichier `countries.h`. 
 
-- [x] Implémentation des fonctions du fichier *countries.h* dans le fichier 
-  *countries.c*
+- [x] Implémentation des fonctions du fichier `countries.h` dans le fichier 
+  `countries.c`.
 
   - [x] void afficherAide()
-  - [x] int chercherArgument(const \*\*p, const \*chaine, int argc)
+  - [x] int chercherArgument(const char \*\*p, const char \*chaine, int nbArguments)
   - [x] Pays * recupererDonneesPays(const char \*cle, bool doitAffPays, 
             bool doitAffReg)
   - [x] void traiterFormatTexte(Pays \* pays, const char \*nomFicher, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro)
   - [x] void traiterFormatDot(Pays \* pays, const char \*nomFichier, 
             bool doitAffLan, bool doitAffCap, bool doitAffFro, bool doitAffDra)
-  - [x] void traiterFormatPng(const char \*nomFichier, 
-            const char \*nomFichierDot);
+  - [x] void traiterFormatPng(const char \*nomFichier, const char \*nomFichierDot);
   - [x] void validerNomFichier(const char \*nomFichier, const char \*format);
   - [x] void trierLangues(Pays \*pays);
 
-- [x] Implémentation du fichier *tp2.c* pour produire un exécutable fonctionnel 
+- [x] Implémentation du fichier `tp2.c` pour produire un exécutable fonctionnel. 
 
-- [ ] Créer des suites de tests et tester le projet
+- [x] Créer des suites de tests et tester le projet.
     
   - [x] Creation d'une suite de tests sur les commandes entrées par 
-        l'utilisateur
-  - [x] Creation d'une suite de tests pour le format texte
-  - [x] Creation d'une suite de tests pour le format Dot
-  - [ ] Création d'une suite de tests pour le format PNG, si réalisable. 
-  - [ ] Validation des tests et corrections éventuelles appliquées au projet
+        l'utilisateur.
+  - [x] Creation d'une suite de tests pour le format texte.
+  - [x] Creation d'une suite de tests pour le format Dot.
 
-- [ ] Optimisation 
+- [ ] Optimisation. 

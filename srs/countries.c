@@ -4,7 +4,7 @@
  * des fonctions declarees dans le fichier 'countries.h'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     11 novembre 2016
+ * @Version     20 novembre 2016
  */
 
 #include "countries.h"
@@ -23,13 +23,13 @@ void afficherAide(){
     printf("                             mandatory for the \"png\" format. For the \"text\" and \"dot\"\n");
     printf("                             format, the result is printed on stdout if no output\n");
     printf("                             filename is given.\n");
-    printf("  --show-languages           The offficial languages of each country are displayed.\n");
+    printf("  --show-languages           The official languages of each country are displayed.\n");
     printf("  --show-capital             The capital of each country is displayed.\n");
     printf("  --show-borders             The borders of each country are displayed.\n");
     printf("  --show-flag                The flag of each country is displayed\n");
     printf("                             (only for \"dot\" and \"png\" format).\n");
     printf("  --country COUNTRY          The country code (e.g. \"can\", \"usa\") to be displayed.\n");
-    printf("  --region REGION            the supported regions are \"africa\", \"americas\",\n");
+    printf("  --region REGION            The supported regions are \"africa\", \"americas\",\n");
     printf("                             \"asia\", \"europe\" and \"oceania\".\n");
 } 
 
@@ -58,21 +58,17 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
     json_t *racine, *element;
     json_t *objPays, *objNom, *objNomCommun, *objCode, *objRegion, 
            *objCapitale, *objLangues, *tabFrontieres;   
-    const char *nomCommun[NBPAYS], *code[NBPAYS], *region[NBPAYS], 
-           *capitale[NBPAYS];
-
-    Pays pays[NBPAYS];
+    const char *nomCommun[NBPAYS + 1], *code[NBPAYS + 1], *region[NBPAYS + 1], 
+           *capitale[NBPAYS + 1];
+    Pays pays[NBPAYS + 1];
     Pays *paysRetour;
 
     fseek(f,0,SEEK_END);
     taille = ftell(f);
-
     rewind(f);
-
     donnees = malloc(taille + 1);
     fread(donnees, taille, 1, f);
-    donnees[taille] = '\0';
-         
+    donnees[taille] = '\0';         
     racine = json_loads(donnees, 0, &erreur);
     j = 0;
 
@@ -106,10 +102,6 @@ Pays * recupererDonneesPays(const char* cle, bool doitAffPays,
             k = 0;
             json_object_foreach(objLangues, index, element) {
                 pays[j].langues[k] = json_string_value(element);
-                if(k > 0 && strcmp(pays[j].langues[k], pays[j].langues[k-1]) < 0) {
-                    pays[j].langues[k] = pays[j].langues[k-1];
-                    pays[j].langues[k-1] = json_string_value(element);
-                }
                 ++k;
             }
             pays[j].langues[k] = "\0";
@@ -152,8 +144,7 @@ void traiterFormatTexte(Pays *pays, const char *nomFichier, bool doitAffLan,
         if (doitAffCap == true) {
             fprintf(f, "Capital: %s\n", pays[i].capitale);
         }
-        if (doitAffLan == true) {
-            
+        if (doitAffLan == true) { 
             fprintf(f, "Languages: %s", pays[i].langues[0]);
             if (strcmp(pays[i].langues[0], "\0") != 0) {
                 j = 1;
@@ -164,7 +155,6 @@ void traiterFormatTexte(Pays *pays, const char *nomFichier, bool doitAffLan,
             }
             fputs("\n", f);
         }
-        
         if (doitAffFro == true) {
             fputs("Borders:", f);
             j = 0;
@@ -195,11 +185,9 @@ void traiterFormatDot(Pays *pays, const char *nomFichier, bool doitAffLan,
     }
     fputs("graph {\n", f);
     while(strcmp(pays[i].code, "\0") != 0) {
-        
         for(j = 0 ; j < 4 ; j++) {
             codeMin[i][j] = tolower(pays[i].code[j]);
         }
-
         fprintf(f, "    %s [\n", codeMin[i]); 
         fputs("        shape = none,\n", f);
         fputs("        label = <<table border=\"0\" cellspacing=\"0\">\n", f);
@@ -297,7 +285,6 @@ bool validerNomFichier(const char *nomFichier, const char *format) {
         printf("Erreur. Le nom du fichier ne doit contenir qu'un seul point.\n");
         return false;
     }
-
     for(i = 0 ; chaine[i] != '\0' ;  i++) {
         if(chaine[i] < 48 || chaine[i] > 122 ||
                 (chaine[i] > 57 && chaine[i] < 65) ||
@@ -311,7 +298,8 @@ bool validerNomFichier(const char *nomFichier, const char *format) {
 }
 
 void trierLangues(Pays *pays) {
-    int i, j, k, l;
+
+    int i, j, k;
     const char * chaine;
 
      i = 0;
@@ -326,10 +314,7 @@ void trierLangues(Pays *pays) {
                     pays[i].langues[k] = malloc(strlen(pays[i].langues[k-1] + 1));
                     pays[i].langues[k] = pays[i].langues[k-1];
                     pays[i].langues[k-1] = malloc(strlen(chaine) + 1);
-                    pays[i].langues[k-1] = chaine;
-                    for(l = 0 ; strcmp(pays[i].langues[l], "\0") != 0 ; ++l) {
-                    }
-                                
+                    pays[i].langues[k-1] = chaine;            
                 }
                 ++k;
             }

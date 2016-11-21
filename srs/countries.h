@@ -4,19 +4,25 @@
  * des differentes fonctions du fichier 'countries.c'
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     11 novembre 2016 
+ * @Version     20 novembre 2016 
  */
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
 #include<ctype.h>
 #include<jansson.h>
-#define NBPAYS 249
+
+//
+// Constantes
+//
+#define NBPAYS 248
 #define FORMATPARDEFAUT "text\0"
+
 //
 // Structure
 //
-typedef struct {
+typedef struct {       // Structure permettant de contenir les informations
+                       // d'un pays
     const char *nom;
     const char *code;
     const char *capitale;
@@ -25,11 +31,10 @@ typedef struct {
     const char *frontieres[NBPAYS];
 } Pays;
 
-//
+
 //
 // Prototypes
 //
-
 /**
  * Affiche les informations d'aide lorsque l'argument '--help' est present.
  *
@@ -45,7 +50,7 @@ void afficherAide();
  * @param p             Pointeur de pointeurs de caracteres, pointant au debut
  *                      du tableau de chaine de caracteres argv.
  * @param chaine        Chaine recherchee.
- * @param nbArguments   Nombre de chaine contenues dans la commande d'execution
+ * @param nbArguments   Nombre de chaines contenues dans la commande d'execution
  *                      (argc).
  * @return              La position de la chaine dans la commande, 0 si la 
  *                      chaine est absente.
@@ -54,12 +59,12 @@ int chercherArgument(const char **p, const char *chaine, int nbArguments);
 
 /**
  * Fonction qui retourne un pointeur de pays contenant les informations 
- * relatives au noms commun, au code a trois lettres, a la region, a la
+ * relatives au nom commun, au code a trois lettres, a la region, a la
  * capitale, aux langues et aux pays frontaliers d'un pays, de tous les pays 
  * d'une region ou de tous les pays contenus dans le fichier JSON.
  *
- * @param *cle          chaine de caractere contenant soit le code a trois
- *                      chiffre du pays recherche (si on ne cherche qu'un seul
+ * @param *cle          chaine de caracteres contenant soit le code a trois
+ *                      chiffres du pays recherche (si on ne cherche qu'un seul
  *                      pays), le nom de la region des pays recherches, ou rien
  *                      si la fonction doit traiter tous les pays.
  * @param doitAffPays   Determine si la fonction doit recuperer les informations
@@ -83,7 +88,7 @@ Pays * recupererDonneesPays(const char *cle, bool doitAffPays,
  * @param *pays       Pointeur de pays contenant les informations sur le
  *                    ou les pays a traiter.
  * @param *nomFichier Le nom du fichier a generer. Si vide, envoie les 
- *                    information a la sortie standard.                     
+ *                    informations a la sortie standard.                     
  * @param doitAffLan  Determine si la fonction doit afficher les langues.
  * @param doitAffCap  Determine si la fonction doit afficher la capitale.
  * @param doitAffFro  Determine si la fonction doit afficher les pays 

@@ -1,0 +1,4 @@
+srs/*.o 
+bin/*.png 
+bin/*.txt 
+bin/*.dot

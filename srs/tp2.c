@@ -1,9 +1,9 @@
 /* UQAM - Automne2016 - INF3135 - Groupe 21 - TP2
  *
- * tp2.c - Fichier source C de l'executable
+ * tp2.c - Fichier source C servant a la generation de l'executable
  *
  * @Auteur      Chretien Alexis (CHRA25049209)
- * @Version     11 novembre 2016
+ * @Version     20 novembre 2016
  */
 
 #include "countries.h"
@@ -13,24 +13,25 @@
  */
 int main(int argc, char *argv[]) {
  
-    int position = 0;     // position des arguments recherchees
-    char *cle;
-    char *formatSortie = FORMATPARDEFAUT;
-    char *nomFichier;
-    char *nomFichierDot;
+    int position = 0;     // Position des arguments recherches
+    char *cle;            // Le nom du pays ou de la region desire(e).
+    char *formatSortie = FORMATPARDEFAUT;  // Le format de sortie ("text", 
+                                           // "dot" ou "png".)
+    char *nomFichier;          // Nom du fichier de sortie
+    char *nomFichierDot;       // Nom du fichier "dot" temporaire dans le cas 
+                               // de traitement du format "png"
     bool doitAffLan = false;   // Determine si on doit afficher les langues
                                // officiels
     bool doitAffCap = false;   // Determine si on doit afficher la capitale
-    bool doitAffFro = false;   // Determine si on doit afficher les frontaliers
+    bool doitAffFro = false;   // Determine si on doit afficher les frontieres
     bool doitAffDra = false;   // Determine si on doit afficher le drapeau
-    bool doitAffPays = false;   // Determine si on doit afficher un pays en
+    bool doitAffPays = false;  // Determine si on doit afficher un pays en
                                // particulier
     bool doitAffReg = false;   // Determine si on doit afficher tous les pays
                                // d'une region donnee 
-    Pays *pays;
+    Pays *pays;                // L'ensemble des pays a traiter 
     
     if(chercherArgument((const char **)argv,"--help",argc) != 0) {
-        printf("%d\n",position);
         afficherAide();
         return 0;
     }
@@ -83,8 +84,7 @@ int main(int argc, char *argv[]) {
        if(!validerNomFichier(nomFichier, formatSortie)) {
             return 0;
        }
-    }
-    
+    } 
     pays = recupererDonneesPays(cle, doitAffPays, doitAffReg);
 
     if(strcmp(pays[0].code, "\0") == 0) {
@@ -98,20 +98,16 @@ int main(int argc, char *argv[]) {
                 doitAffFro); 
     }
     else if(strcmp(formatSortie, "dot") == 0) {
-
        traiterFormatDot(pays, nomFichier, doitAffLan, doitAffCap,
               doitAffFro, doitAffDra);
     }
     else if (strcmp(formatSortie, "png") == 0 ) {
-        
         nomFichierDot = malloc(strlen(nomFichier) + 4);
         strcat(nomFichierDot, nomFichier);
         strcat(nomFichierDot, ".dot\0");
-
         traiterFormatDot(pays, nomFichierDot, doitAffLan, doitAffCap, 
                     doitAffFro, doitAffDra);
         traiterFormatPng(nomFichier, nomFichierDot);        
     }
     return 0;
 }
-
