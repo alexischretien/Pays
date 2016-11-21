@@ -25,3 +25,4 @@ data:
 
 test: 
 	cd test; bats suite1.bats suite2.bats suite3.bats
+

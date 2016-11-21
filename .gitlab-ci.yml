@@ -22,7 +22,7 @@ suite2:
     script:
         - make data
         - make
-        - cd test; bats suite2.bats
+        - cd test; bats suite1.bats
 
 suite3:
     stage: test
