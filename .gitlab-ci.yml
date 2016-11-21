@@ -1,0 +1,33 @@
+before_script:
+    - apt-get update -qq && apt-get -y install libjansson-dev graphviz
+    - git clone https://github.com/sstephenson/bats.git /tmp/bats
+    - mkdir -p /tmp/local
+    - bash /tmp/bats/install.sh /tmp/local
+    - export PATH=$PATH:/tmp/local/bin
+
+build: 
+    stage: build
+    script: 
+        - make data
+        - make
+suite1:
+    stage: test
+    script:
+        - make data
+        - make
+        - cd test; bats suite1.bats
+
+suite2:
+    stage: test
+    script:
+        - make data
+        - make
+        - cd test; bats suite2.bats
+
+suite3:
+    stage: test
+    script:
+        - make data
+        - make
+        - cd test; bats suite3.bats
+
