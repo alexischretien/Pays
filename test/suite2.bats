@@ -1,21 +1,21 @@
 #!/usr/bin/env bats
 
 @test "Afficher format texte (format par defaut) sur Canada" {
-    run ../bin/tp2 --country can
+    run ../bin/run --country can
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "------------------------------" ]
 }
 
 @test "Afficher format texte sur Canada" {
-    run ../bin/tp2 --output-format text --country can {
+    run ../bin/run --output-format text --country can {
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "------------------------------" ]
 }
 
 @test "Afficher format texte sur Canada avec --show-capital" {
-    run ../bin/tp2 --country can --show-capital
+    run ../bin/run --country can --show-capital
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "Capital: Ottawa" ]
@@ -23,7 +23,7 @@
 }
 
 @test "Afficher format texte sur Canada avec --show-languages" {
-    run ../bin/tp2 --country can --show-languages
+    run ../bin/run --country can --show-languages
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "Languages: English, French" ]
@@ -31,7 +31,7 @@
 }
 
 @test "Afficher format texte sur Canada avec --show-borders" {
-    run ../bin/tp2 --country can --show-borders
+    run ../bin/run --country can --show-borders
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "Borders: USA" ] 
@@ -39,7 +39,7 @@
 }
 
 @test "Afficher format texte sur Canada avec --show-capital --show-languages --show-borders" {
-    run ../bin/tp2 --country can --show-capital --show-languages --show-borders
+    run ../bin/run --country can --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "Capital: Ottawa" ]
@@ -49,7 +49,7 @@
 }
 
 @test "Afficher format texte du premier pays du fichier JSON (Aruba)" {
-    run ../bin/tp2 --country abw --show-capital --show-languages --show-borders
+    run ../bin/run --country abw --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "Name: Aruba" ]
     [ "${lines[1]}" = "Code: ABW" ]
     [ "${lines[2]}" = "Capital: Oranjestad" ]
@@ -59,7 +59,7 @@
 }
 
 @test "Afficher format texte du dernier pays du fichier JSON (Zimbabwe)" {
-    run ../bin/tp2 --country zwe --show-capital --show-languages --show-borders
+    run ../bin/run --country zwe --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "Name: Zimbabwe" ]
     [ "${lines[1]}" = "Code: ZWE" ]
     [ "${lines[2]}" = "Capital: Harare" ]
@@ -69,7 +69,7 @@
 }
 
 @test "La commande --country a priorite sur la commande --region" {
-    run ../bin/tp2 --region europe --country can --show-capital --show-languages --show-borders
+    run ../bin/run --region europe --country can --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "Name: Canada" ]
     [ "${lines[1]}" = "Code: CAN" ]
     [ "${lines[2]}" = "Capital: Ottawa" ]

@@ -1,10 +1,10 @@
 CC = gcc
 CFLAGS = -Wall `pkg-config --cflags jansson`
 LFLAGS = `pkg-config --libs jansson`
-OBJECTS = $(patsubst %.c,%.o,$(wildcard srs/*.c))
+OBJECTS = $(patsubst %.c,%.o,$(wildcard src/*.c))
 FICHIERS = $(wildcard bin/*.txt) $(wildcard bin/*.dot) $(wildcard bin/*.png)
 
-EXEC = bin/tp2
+EXEC = bin/run
 
 $(EXEC): $(OBJECTS)
 	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS)

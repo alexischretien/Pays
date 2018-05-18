@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 @test "Afficher format \"dot\" sur Canada" {
-    run ../bin/tp2 --country can --output-format dot
+    run ../bin/run --country can --output-format dot
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -14,7 +14,7 @@
 }
 
 @test "Afficher format \"dot\" sur Canada avec --show-capital" {
-    run ../bin/tp2 --country can --output-format dot --show-capital
+    run ../bin/run --country can --output-format dot --show-capital
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -28,7 +28,7 @@
 }
 
 @test "Afficher format \"dot\" sur Canada avec --show-languages" {
-    run ../bin/tp2 --country can --output-format dot --show-languages
+    run ../bin/run --country can --output-format dot --show-languages
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -42,7 +42,7 @@
 }
 
 @test "Afficher format \"dot\" sur Canada avec --show-borders" {
-    run ../bin/tp2 --country can --output-format dot --show-borders
+    run ../bin/run --country can --output-format dot --show-borders
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -56,7 +56,7 @@
 }
 
 @test "Afficher format \"dot\" sur Canada avec --show-capital --show-languages --show-borders" {
-    run ../bin/tp2 --country can --output-format dot --show-capital --show-languages --show-borders
+    run ../bin/run --country can --output-format dot --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -72,7 +72,7 @@
 }
 
 @test "Afficher format \"dot\" du premier pays du fichier JSON (Aruba)" {
-    run ../bin/tp2 --country abw --output-format dot --show-capital --show-languages --show-borders
+    run ../bin/run --country abw --output-format dot --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    abw [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -88,7 +88,7 @@
 }
 
 @test "Afficher format \"dot\" du dernier pays du fichier JSON (Zimbabwe)" {
-    run ../bin/tp2 --country zwe --output-format dot --show-capital --show-languages --show-borders
+    run ../bin/run --country zwe --output-format dot --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    zwe [" ]
     [ "${lines[2]}" = "        shape = none," ]
@@ -104,7 +104,7 @@
 }
 
 @test "La commande --country a priorite sur la commande --region" {
-    run ../bin/tp2 --country can --region-europe --output-format dot --show-capital --show-languages --show-borders
+    run ../bin/run --country can --region-europe --output-format dot --show-capital --show-languages --show-borders
     [ "${lines[0]}" = "graph {" ]
     [ "${lines[1]}" = "    can [" ]
     [ "${lines[2]}" = "        shape = none," ]

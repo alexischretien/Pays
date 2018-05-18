@@ -1,4 +1,4 @@
-# Travail pratique 2
+# Pays
 
 ## Description
 
@@ -13,12 +13,12 @@ des objets graphiques sous format `.dot` ou `.pgn`.
 
 ## Auteurs
 
-- Alexis Chrétien (CHRA25049209)
+- Alexis Chrétien
 
 ## Plateformes supportées
 
-* CentOS release 6.8 (Final)
-
+* CentOS Linux release 7.4.1708 (Core)
+ 
 ## Dépendances
 
 * [Graphviz](http://graphviz.org/Download.php) : Logiciel de visualization graphique.
